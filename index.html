@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coming neither soon nor not soon...</title>
+<title>Coming either soon or not soon...</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
@@ -23,7 +23,6 @@ body {
     padding-left:10vw;
     color:white;
     overflow:hidden;
-
     font-family:'Playfair Display', serif;
 
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
@@ -31,15 +30,18 @@ body {
     background-position:center 40%;
 }
 
+/* container */
 .container {
-    max-width:750px;
+    max-width:800px;
 }
 
+/* title */
 .quote {
     font-size:64px;
     margin-bottom:20px;
 }
 
+/* author */
 .author {
     font-family:'Inter';
     font-size:18px;
@@ -47,52 +49,32 @@ body {
     margin-bottom:40px;
 }
 
-/* RED + GLITCH */
+/* main text */
 .response {
-    font-size:42px;
+    font-size:56px;
     position:relative;
     color:#ff2b2b;
-    text-shadow:0 0 15px rgba(255,0,0,0.4);
+    text-shadow:0 0 15px rgba(255,0,0,0.25);
 }
 
-/* glitch layers */
-.response::before,
-.response::after {
+/* soft glitch */
+.response::before {
     content: attr(data-text);
     position:absolute;
     left:0;
     top:0;
     width:100%;
-    overflow:hidden;
-    opacity:0.6;
+    color:rgba(255,0,0,0.3);
+    transform:translate(1px,0);
+    animation:glitch 3s infinite;
 }
 
-.response::before {
-    color:#ff2b2b;
-    animation:glitch1 2s infinite;
+@keyframes glitch {
+    0%,100% { transform:translate(0); opacity:0.2; }
+    50% { transform:translate(2px,-1px); opacity:0.4; }
 }
 
-.response::after {
-    color:#00ffff;
-    animation:glitch2 2s infinite;
-}
-
-@keyframes glitch1 {
-    0%,100% { transform:translate(0); }
-    20% { transform:translate(2px,-2px); }
-    40% { transform:translate(-2px,2px); }
-    60% { transform:translate(1px,-1px); }
-    80% { transform:translate(-1px,1px); }
-}
-
-@keyframes glitch2 {
-    0%,100% { transform:translate(0); }
-    25% { transform:translate(-2px,1px); }
-    50% { transform:translate(2px,-1px); }
-    75% { transform:translate(-1px,-1px); }
-}
-
-/* blinking dots */
+/* dots */
 .dots::after {
     content:"...";
     animation:blink 1.2s infinite;
@@ -132,7 +114,7 @@ body {
     <div class="author">— Nietzsche</div>
 
     <div class="response" data-text="No, I am not, you jealous bitch">
-        "No, I am not, you jealous bitch<span class="dots"></span>"
+        No, I am not, you jealous bitch<span class="dots"></span>
     </div>
 
     <button class="button" onclick="toggleMusic()">PLAY</button>
@@ -144,12 +126,38 @@ body {
 </audio>
 
 <script>
+const audio = document.getElementById("music");
+const btn = document.querySelector(".button");
 let playing = false;
 
-function toggleMusic() {
-    const audio = document.getElementById("music");
-    const btn = document.querySelector(".button");
+/* autoplay attempt */
+window.addEventListener("load", async () => {
+    try {
+        audio.volume = 0;
+        await audio.play();
 
+        // fade in
+        let v = 0;
+        let fade = setInterval(() => {
+            if (v < 0.6) {
+                v += 0.05;
+                audio.volume = v;
+            } else {
+                clearInterval(fade);
+            }
+        }, 120);
+
+        btn.textContent = "PAUSE";
+        playing = true;
+
+    } catch (e) {
+        // autoplay blocked → user must press PLAY
+        btn.textContent = "PLAY";
+        playing = false;
+    }
+});
+
+function toggleMusic() {
     if (!playing) {
         audio.volume = 0;
         audio.play();
