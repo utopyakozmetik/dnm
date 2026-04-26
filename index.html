@@ -3,212 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Coming either soon or not soon...</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-
-<style>
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body {
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    padding-left:10vw;
-    color:white;
-    overflow:hidden;
-    font-family:'Playfair Display', serif;
-
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
-                url('assets/background.jpg') no-repeat center center/cover;
-    background-position:center 40%;
-}
-
-/* container */
-.container {
-    max-width:800px;
-}
-
-/* TITLE */
-.quote {
-    font-size:64px;
-    margin-bottom:20px;
-}
-
-/* AUTHOR */
-.author {
-    font-family:'Inter';
-    font-size:18px;
-    opacity:0.6;
-    margin-bottom:40px;
-}
-
-/* RESPONSE */
-.response {
-    font-size:56px;
-    position:relative;
-    color:#ff2b2b;
-    text-shadow:0 0 15px rgba(255,0,0,0.25);
-}
-
-/* glitch soft */
-.response::before {
-    content: attr(data-text);
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    color:rgba(255,0,0,0.3);
-    transform:translate(1px,0);
-    animation:glitch 3s infinite;
-}
-
-@keyframes glitch {
-    0%,100% { transform:translate(0); opacity:0.2; }
-    50% { transform:translate(2px,-1px); opacity:0.4; }
-}
-
-/* dots */
-.dots::after {
-    content:"...";
-    animation:blink 1.2s infinite;
-}
-
-@keyframes blink {
-    0%,100% { opacity:0; }
-    50% { opacity:1; }
-}
-
-/* button */
-.button {
-    margin-top:60px;
-    padding:12px 26px;
-    border:1px solid rgba(255,255,255,0.6);
-    background:transparent;
-    color:white;
-    font-family:'Inter';
-    letter-spacing:2px;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.button:hover {
-    background:white;
-    color:black;
-}
-
-/* 🔥 MOBILE FIX */
-@media (max-width:768px) {
-
-    body {
-        padding-left:6vw;
-        padding-right:6vw;
-    }
-
-    .quote {
-        font-size:38px;
-    }
-
-    .author {
-        font-size:14px;
-        margin-bottom:25px;
-    }
-
-    .response {
-        font-size:30px;
-        line-height:1.2;
-    }
-
-    .button {
-        margin-top:40px;
-        width:100%;
-        max-width:220px;
-    }
-}
-</style>
 </head>
 
-<body>
+<body style="
+margin:0;
+height:100vh;
+background:linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)), url('assets/background.jpg') center/cover no-repeat;
+color:white;
+font-family:Georgia, serif;
+display:flex;
+align-items:center;
+justify-content:flex-start;
+padding-left:8vw;
+">
 
-<div class="container">
+<div style="max-width:800px;">
 
-    <div class="quote">"God is dead."</div>
-
-    <div class="author">— Nietzsche</div>
-
-    <div class="response" data-text="No, I am not, you jealous bitch">
-        No, I am not, you jealous bitch<span class="dots"></span>
+    <div style="font-size:68px; line-height:1.1; margin-bottom:25px;">
+        "God is dead."
     </div>
 
-    <button class="button" onclick="toggleMusic()">PLAY</button>
+    <div style="font-size:18px; font-family:Arial; opacity:0.6; margin-bottom:50px;">
+        — Nietzsche
+    </div>
+
+    <div style="font-size:56px; color:#ff2b2b; line-height:1.1;">
+        No, I am not, you jealous bitch...
+    </div>
+
+    <div style="font-size:14px; font-family:Arial; opacity:0.4; margin-top:40px;">
+        coming either soon or not soon...
+    </div>
 
 </div>
 
-<audio id="music" loop>
+<audio autoplay loop>
     <source src="assets/music.mp3" type="audio/mpeg">
 </audio>
-
-<script>
-const audio = document.getElementById("music");
-const btn = document.querySelector(".button");
-let playing = false;
-
-/* autoplay attempt */
-window.addEventListener("load", async () => {
-    try {
-        audio.volume = 0;
-        await audio.play();
-
-        let v = 0;
-        let fade = setInterval(() => {
-            if (v < 0.6) {
-                v += 0.05;
-                audio.volume = v;
-            } else {
-                clearInterval(fade);
-            }
-        }, 120);
-
-        btn.textContent = "PAUSE";
-        playing = true;
-
-    } catch (e) {
-        btn.textContent = "PLAY";
-        playing = false;
-    }
-});
-
-function toggleMusic() {
-    if (!playing) {
-        audio.volume = 0;
-        audio.play();
-
-        let v = 0;
-        let fade = setInterval(() => {
-            if (v < 0.6) {
-                v += 0.05;
-                audio.volume = v;
-            } else {
-                clearInterval(fade);
-            }
-        }, 120);
-
-        btn.textContent = "PAUSE";
-        playing = true;
-
-    } else {
-        audio.pause();
-        btn.textContent = "PLAY";
-        playing = false;
-    }
-}
-</script>
 
 </body>
 </html>
