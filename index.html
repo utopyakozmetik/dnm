@@ -27,6 +27,7 @@ body {
     font-family:'Playfair Display', serif;
     overflow:hidden;
     background:black;
+    transition: transform 0.05s linear;
 }
 
 /* BACKGROUND */
@@ -37,24 +38,30 @@ body {
     width:100%;
     height:100%;
     object-fit:cover;
+    object-position:center;
     z-index:-2;
+    transform:scale(1);
+    transition: transform 0.08s linear, opacity 1s ease;
 }
 
+/* OVERLAY */
 .overlay {
     position:fixed;
     top:0;
     left:0;
     width:100%;
     height:100%;
-    background:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+    background:rgba(0,0,0,0.35);
     z-index:-1;
+    transition: background 0.08s linear;
 }
 
-/* TEXT */
+/* CONTAINER */
 .container {
     max-width:800px;
 }
 
+/* TEXT */
 .response {
     font-size:56px;
     position:relative;
@@ -101,7 +108,7 @@ body {
     cursor:pointer;
 }
 
-/* TRACK (SAĞ ALT KÖŞE) */
+/* TRACK */
 .track {
     position:fixed;
     right:20px;
@@ -123,7 +130,7 @@ body {
 <body>
 
 <!-- BACKGROUND -->
-<img class="bg" src="assets/background.jpg">
+<img class="bg" id="bg" src="assets/background.jpg">
 <div class="overlay"></div>
 
 <div class="container">
@@ -136,7 +143,7 @@ body {
 
 </div>
 
-<!-- TRACK NAME -->
+<!-- TRACK -->
 <div class="track" id="trackName"></div>
 
 <!-- AUDIO -->
@@ -148,7 +155,9 @@ body {
 <script>
 const audio = document.getElementById("music");
 const btn = document.querySelector(".button");
-const target = document.querySelector(".response");
+const text = document.querySelector(".response");
+const bg = document.getElementById("bg");
+const overlay = document.querySelector(".overlay");
 const track = document.getElementById("trackName");
 
 let playing = false;
@@ -166,7 +175,7 @@ function setTrackName() {
     track.textContent = "♪ " + name;
 }
 
-/* BEAT SYSTEM */
+/* AUDIO INIT */
 function initAudio() {
     ctx = new (window.AudioContext || window.webkitAudioContext)();
     analyser = ctx.createAnalyser();
@@ -178,11 +187,12 @@ function initAudio() {
     analyser.fftSize = 256;
     dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-    beatLoop();
+    loop();
 }
 
-function beatLoop() {
-    requestAnimationFrame(beatLoop);
+/* BEAT LOOP */
+function loop() {
+    requestAnimationFrame(loop);
 
     analyser.getByteFrequencyData(dataArray);
 
@@ -192,11 +202,23 @@ function beatLoop() {
     }
     bass /= 13;
 
+    // TEXT
     let scale = 1 + (bass / 255) * 0.35;
     let glow = (bass / 255) * 25;
 
-    target.style.transform = `scale(${scale})`;
-    target.style.filter = `drop-shadow(0 0 ${glow}px rgba(255,0,0,0.7))`;
+    text.style.transform = `scale(${scale})`;
+    text.style.filter = `drop-shadow(0 0 ${glow}px rgba(255,0,0,0.7))`;
+
+    // BACKGROUND ZOOM
+    let bgScale = 1 + (bass / 255) * 0.05;
+    bg.style.transform = `scale(${bgScale})`;
+
+    // SHAKE
+    let shake = (bass / 255) * 4;
+    document.body.style.transform = `translate(${shake}px, ${shake}px)`;
+
+    // LIGHT PULSE
+    overlay.style.background = `rgba(0,0,0,${0.35 + (bass/255)*0.25})`;
 }
 
 /* MUSIC */
