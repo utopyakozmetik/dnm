@@ -3,12 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coming Neither</title>
+
+<title>Coming neither soon nor not soon...</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body {
     height:100vh;
@@ -18,70 +23,23 @@ body {
     padding-left:10vw;
     color:white;
     overflow:hidden;
+
     font-family:'Playfair Display', serif;
 
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
-                url('assets/background.jpg') no-repeat center center;
-    background-size:cover;
+                url('assets/background.jpg') no-repeat center center/cover;
     background-position:center 40%;
-
-    animation:sceneIn 2s ease;
 }
 
-/* scene intro */
-@keyframes sceneIn {
-    from { opacity:0; transform:scale(1.05); filter:blur(8px);}
-    to { opacity:1; transform:scale(1); filter:blur(0);}
-}
-
-/* container */
 .container {
     max-width:750px;
 }
 
-/* GLITCH TITLE */
 .quote {
     font-size:64px;
     margin-bottom:20px;
-    position:relative;
-    animation:flicker 3s infinite;
 }
 
-.quote::before,
-.quote::after {
-    content:attr(data-text);
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    opacity:0.6;
-}
-
-.quote::before {
-    color:#ff2b2b;
-    animation:glitch 2s infinite;
-}
-
-.quote::after {
-    color:#00ffff;
-    animation:glitch 2s infinite reverse;
-}
-
-@keyframes glitch {
-    0%{transform:translate(0)}
-    20%{transform:translate(-2px,2px)}
-    40%{transform:translate(2px,-2px)}
-    60%{transform:translate(-1px,1px)}
-    80%{transform:translate(1px,-1px)}
-    100%{transform:translate(0)}
-}
-
-@keyframes flicker {
-    0%,100% { opacity:1; }
-    50% { opacity:0.85; }
-}
-
-/* author */
 .author {
     font-family:'Inter';
     font-size:18px;
@@ -89,34 +47,60 @@ body {
     margin-bottom:40px;
 }
 
-/* red pulse text */
+/* RED + GLITCH */
 .response {
     font-size:42px;
-    animation:fadeIn 1.5s ease forwards;
-    opacity:0;
-    animation-delay:1.2s;
-}
-
-.red {
+    position:relative;
     color:#ff2b2b;
-    text-shadow:0 0 15px rgba(255,0,0,0.5);
-    animation:pulse 2s infinite;
+    text-shadow:0 0 15px rgba(255,0,0,0.4);
 }
 
-@keyframes pulse {
-    0%,100% { transform:scale(1); text-shadow:0 0 10px rgba(255,0,0,0.4);}
-    50% { transform:scale(1.02); text-shadow:0 0 25px rgba(255,0,0,0.7);}
+/* glitch layers */
+.response::before,
+.response::after {
+    content: attr(data-text);
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    overflow:hidden;
+    opacity:0.6;
 }
 
-/* dots */
+.response::before {
+    color:#ff2b2b;
+    animation:glitch1 2s infinite;
+}
+
+.response::after {
+    color:#00ffff;
+    animation:glitch2 2s infinite;
+}
+
+@keyframes glitch1 {
+    0%,100% { transform:translate(0); }
+    20% { transform:translate(2px,-2px); }
+    40% { transform:translate(-2px,2px); }
+    60% { transform:translate(1px,-1px); }
+    80% { transform:translate(-1px,1px); }
+}
+
+@keyframes glitch2 {
+    0%,100% { transform:translate(0); }
+    25% { transform:translate(-2px,1px); }
+    50% { transform:translate(2px,-1px); }
+    75% { transform:translate(-1px,-1px); }
+}
+
+/* blinking dots */
 .dots::after {
     content:"...";
     animation:blink 1.2s infinite;
 }
 
 @keyframes blink {
-    0%,100%{opacity:0;}
-    50%{opacity:1;}
+    0%,100% { opacity:0; }
+    50% { opacity:1; }
 }
 
 /* button */
@@ -130,19 +114,11 @@ body {
     letter-spacing:2px;
     cursor:pointer;
     transition:0.3s;
-    opacity:0;
-    animation:fadeIn 1.5s ease forwards;
-    animation-delay:2s;
 }
 
 .button:hover {
     background:white;
     color:black;
-}
-
-/* fade */
-@keyframes fadeIn {
-    to { opacity:1; }
 }
 </style>
 </head>
@@ -151,13 +127,11 @@ body {
 
 <div class="container">
 
-    <div class="quote" data-text="Coming neither soon nor not soon...">
-        Coming neither soon nor not soon...
-    </div>
+    <div class="quote">"God is dead."</div>
 
-    <div class="author">— undefined intention</div>
+    <div class="author">— Nietzsche</div>
 
-    <div class="response red">
+    <div class="response" data-text="No, I am not, you jealous bitch">
         "No, I am not, you jealous bitch<span class="dots"></span>"
     </div>
 
