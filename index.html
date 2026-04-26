@@ -103,7 +103,7 @@ body {
     color:black;
 }
 
-/* 🔥 MOBILE FIX */
+/* MOBILE */
 @media (max-width:768px) {
 
     body {
@@ -159,28 +159,32 @@ const audio = document.getElementById("music");
 const btn = document.querySelector(".button");
 let playing = false;
 
-/* autoplay attempt */
-window.addEventListener("load", async () => {
-    try {
-        audio.volume = 0;
-        await audio.play();
+/* FIXED AUTOPLAY */
+window.addEventListener("DOMContentLoaded", async () => {
+    const playPromise = audio.play();
 
-        let v = 0;
-        let fade = setInterval(() => {
-            if (v < 0.6) {
-                v += 0.05;
-                audio.volume = v;
-            } else {
-                clearInterval(fade);
-            }
-        }, 120);
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
 
-        btn.textContent = "PAUSE";
-        playing = true;
+            audio.volume = 0;
 
-    } catch (e) {
-        btn.textContent = "PLAY";
-        playing = false;
+            let v = 0;
+            let fade = setInterval(() => {
+                if (v < 0.6) {
+                    v += 0.05;
+                    audio.volume = v;
+                } else {
+                    clearInterval(fade);
+                }
+            }, 120);
+
+            btn.textContent = "PAUSE";
+            playing = true;
+
+        }).catch(() => {
+            btn.textContent = "PLAY";
+            playing = false;
+        });
     }
 });
 
