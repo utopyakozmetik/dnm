@@ -1,4 +1,3 @@
-```html id="cinema1"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,131 +8,95 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body {
     height:100vh;
     display:flex;
-    justify-content:center;
     align-items:center;
-    color:#fff;
-    text-align:center;
+    justify-content:flex-start;
+    padding-left:10vw;
+    color:white;
     overflow:hidden;
+
     font-family:'Playfair Display', serif;
 
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)),
-                url('assets/background.jpg') no-repeat center/cover;
-}
-
-/* grain */
-body::after {
-    content:"";
-    position:absolute;
-    width:200%; height:200%;
-    background:url('https://grainy-gradients.vercel.app/noise.svg');
-    opacity:.07;
-    animation:grain 8s steps(10) infinite;
-}
-
-@keyframes grain {
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(-10%,10%);}
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
+                url('assets/background.jpg') no-repeat center center/cover;
 }
 
 /* container */
 .container {
-    z-index:2;
-    max-width:900px;
-    padding:40px;
-    animation:fadeIn 2s ease;
+    max-width:700px;
 }
 
-/* text animations */
-.quote, .author, .response {
+/* text */
+.quote {
+    font-size:64px;
+    margin-bottom:20px;
     opacity:0;
-    transform:translateY(20px);
-    animation:reveal 1.2s ease forwards;
+    animation:fadeIn 1.2s ease forwards;
 }
 
-.quote { font-size:clamp(34px,5vw,64px); animation-delay:.5s; }
-.author { font-family:'Inter'; font-size:18px; opacity:.7; animation-delay:1.2s; }
-.response { font-size:clamp(30px,4.5vw,52px); margin-top:30px; animation-delay:2s; }
-
-/* glitch effect */
-.response.glitch {
-    position:relative;
-}
-.response.glitch::before,
-.response.glitch::after {
-    content:attr(data-text);
-    position:absolute;
-    left:0;
-    width:100%;
+.author {
+    font-family:'Inter';
+    font-size:18px;
     opacity:0.6;
-}
-.response.glitch::before {
-    color:red;
-    animation:glitch 2s infinite;
-}
-.response.glitch::after {
-    color:cyan;
-    animation:glitch 2s infinite reverse;
+    margin-bottom:40px;
+    opacity:0;
+    animation:fadeIn 1.2s ease forwards;
+    animation-delay:0.5s;
 }
 
-@keyframes glitch {
-    0%{transform:translate(0)}
-    20%{transform:translate(-2px,2px)}
-    40%{transform:translate(-2px,-2px)}
-    60%{transform:translate(2px,2px)}
-    80%{transform:translate(2px,-2px)}
-    100%{transform:translate(0)}
+.response {
+    font-size:42px;
+    opacity:0;
+    animation:fadeIn 1.2s ease forwards;
+    animation-delay:1.2s;
 }
 
-/* reveal */
-@keyframes reveal {
-    to {
-        opacity:1;
-        transform:translateY(0);
-    }
+/* dots */
+.dots::after {
+    content:"...";
+    animation:blink 1.2s infinite;
 }
 
+@keyframes blink {
+    0%, 100% { opacity:0; }
+    50% { opacity:1; }
+}
+
+/* button */
 .button {
     margin-top:60px;
-    padding:12px 28px;
+    padding:12px 26px;
     border:1px solid rgba(255,255,255,0.6);
     background:transparent;
-    color:#fff;
-    cursor:pointer;
+    color:white;
     font-family:'Inter';
-    letter-spacing:1px;
-    transition:.3s;
-    animation:reveal 1s ease forwards;
-    animation-delay:3s;
+    cursor:pointer;
+    letter-spacing:2px;
+    transition:0.3s;
     opacity:0;
+    animation:fadeIn 1.2s ease forwards;
+    animation-delay:2s;
 }
 
 .button:hover {
-    background:#fff;
-    color:#000;
-    transform:translateY(-2px);
+    background:white;
+    color:black;
 }
 
-/* exit animation */
-body.exit .container {
-    animation:zoomOut 1.2s ease forwards;
-}
-
-@keyframes zoomOut {
-    to {
-        transform:scale(1.2);
-        opacity:0;
-        filter:blur(10px);
-    }
-}
-
+/* fade */
 @keyframes fadeIn {
-    from { opacity:0; filter:blur(6px);}
-    to { opacity:1; filter:blur(0);}
+    to {
+        opacity:1;
+        transform:none;
+    }
 }
 </style>
 </head>
@@ -144,11 +107,11 @@ body.exit .container {
     <div class="quote">"God is dead."</div>
     <div class="author">— Nietzsche</div>
 
-    <div class="response glitch" data-text='"No, I am not, you jealous bitch."'>
-        "No, I am not, you jealous bitch."
+    <div class="response">
+        "No, I am not, you jealous bitch<span class="dots"></span>"
     </div>
 
-    <button class="button" onclick="startExperience()">ENTER</button>
+    <button class="button" onclick="toggleMusic()">PLAY</button>
 </div>
 
 <audio id="music" loop>
@@ -156,28 +119,37 @@ body.exit .container {
 </audio>
 
 <script>
-function startExperience() {
+let playing = false;
+
+function toggleMusic() {
     const audio = document.getElementById("music");
-    audio.volume = 0;
+    const btn = document.querySelector(".button");
 
-    audio.play();
+    if (!playing) {
+        audio.volume = 0;
+        audio.play();
 
-    // smooth fade-in sound
-    let vol = 0;
-    let fade = setInterval(() => {
-        if (vol < 0.6) {
-            vol += 0.05;
-            audio.volume = vol;
-        } else {
-            clearInterval(fade);
-        }
-    }, 200);
+        // fade in
+        let v = 0;
+        let fade = setInterval(() => {
+            if (v < 0.6) {
+                v += 0.05;
+                audio.volume = v;
+            } else {
+                clearInterval(fade);
+            }
+        }, 150);
 
-    // exit animation
-    document.body.classList.add("exit");
+        btn.textContent = "PAUSE";
+        playing = true;
+
+    } else {
+        audio.pause();
+        btn.textContent = "PLAY";
+        playing = false;
+    }
 }
 </script>
 
 </body>
 </html>
-```
