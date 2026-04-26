@@ -19,15 +19,9 @@
 
 body {
     height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    padding-left:10vw;
-    color:white;
     font-family:'Playfair Display', serif;
     overflow:hidden;
     background:black;
-    transition: transform 0.05s linear;
 }
 
 /* BACKGROUND */
@@ -40,8 +34,7 @@ body {
     object-fit:cover;
     object-position:center;
     z-index:-2;
-    transform:scale(1);
-    transition: transform 0.08s linear, opacity 1s ease;
+    transition: transform 0.08s linear;
 }
 
 /* OVERLAY */
@@ -56,18 +49,24 @@ body {
     transition: background 0.08s linear;
 }
 
-/* CONTAINER */
-.container {
-    max-width:800px;
-}
-
-/* TEXT */
+/* TEXT TOP LEFT */
 .response {
+    position:fixed;
+    top:40px;
+    left:40px;
+
     font-size:56px;
-    position:relative;
     color:#ff2b2b;
     text-shadow:0 0 15px rgba(255,0,0,0.25);
+
+    line-height:1.1;
     transition: transform 0.08s linear, filter 0.08s linear;
+}
+
+/* SECOND LINE INDENT */
+.indent {
+    display:block;
+    margin-left:60px;
 }
 
 /* GLITCH */
@@ -85,20 +84,12 @@ body {
     50% { transform:translate(2px,-1px); opacity:0.4; }
 }
 
-/* DOTS */
-.dots::after {
-    content:"...";
-    animation:blink 1.2s infinite;
-}
-
-@keyframes blink {
-    0%,100% { opacity:0; }
-    50% { opacity:1; }
-}
-
 /* BUTTON */
 .button {
-    margin-top:60px;
+    position:absolute;
+    bottom:80px;
+    left:40px;
+
     padding:12px 26px;
     border:1px solid rgba(255,255,255,0.6);
     background:transparent;
@@ -133,15 +124,14 @@ body {
 <img class="bg" id="bg" src="assets/background.jpg">
 <div class="overlay"></div>
 
-<div class="container">
-
-    <div class="response" data-text="Nadanı arzulamayan...">
-        Nadanı arzulamayan<span class="dots"></span>
-    </div>
-
-    <button class="button" onclick="toggleMusic()">PLAY</button>
-
+<!-- TEXT -->
+<div class="response" data-text="Nadanı arzulamayan...">
+    Nadanı<br>
+    <span class="indent">arzulamayan...</span>
 </div>
+
+<!-- BUTTON -->
+<button class="button" onclick="toggleMusic()">PLAY</button>
 
 <!-- TRACK -->
 <div class="track" id="trackName"></div>
@@ -157,7 +147,6 @@ const audio = document.getElementById("music");
 const btn = document.querySelector(".button");
 const text = document.querySelector(".response");
 const bg = document.getElementById("bg");
-const overlay = document.querySelector(".overlay");
 const track = document.getElementById("trackName");
 
 let playing = false;
@@ -175,7 +164,7 @@ function setTrackName() {
     track.textContent = "♪ " + name;
 }
 
-/* AUDIO INIT */
+/* AUDIO */
 function initAudio() {
     ctx = new (window.AudioContext || window.webkitAudioContext)();
     analyser = ctx.createAnalyser();
@@ -202,23 +191,20 @@ function loop() {
     }
     bass /= 13;
 
-    // TEXT
+    // TEXT BEAT
     let scale = 1 + (bass / 255) * 0.35;
     let glow = (bass / 255) * 25;
 
     text.style.transform = `scale(${scale})`;
     text.style.filter = `drop-shadow(0 0 ${glow}px rgba(255,0,0,0.7))`;
 
-    // BACKGROUND ZOOM
-    let bgScale = 1 + (bass / 255) * 0.05;
+    // BACKGROUND ZOOM (controlled)
+    let bgScale = 1 + (bass / 255) * 0.03;
     bg.style.transform = `scale(${bgScale})`;
 
-    // SHAKE
-    let shake = (bass / 255) * 4;
-    document.body.style.transform = `translate(${shake}px, ${shake}px)`;
-
     // LIGHT PULSE
-    overlay.style.background = `rgba(0,0,0,${0.35 + (bass/255)*0.25})`;
+    document.querySelector(".overlay").style.background =
+        `rgba(0,0,0,${0.35 + (bass/255)*0.25})`;
 }
 
 /* MUSIC */
