@@ -3,16 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coming Soon</title>
+<title>Coming Neither</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
     height:100vh;
@@ -22,41 +18,94 @@ body {
     padding-left:10vw;
     color:white;
     overflow:hidden;
-
     font-family:'Playfair Display', serif;
 
-    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
-                url('assets/background.jpg') no-repeat center center/cover;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+                url('assets/background.jpg') no-repeat center center;
+    background-size:cover;
+    background-position:center 40%;
+
+    animation:sceneIn 2s ease;
+}
+
+/* scene intro */
+@keyframes sceneIn {
+    from { opacity:0; transform:scale(1.05); filter:blur(8px);}
+    to { opacity:1; transform:scale(1); filter:blur(0);}
 }
 
 /* container */
 .container {
-    max-width:700px;
+    max-width:750px;
 }
 
-/* text */
+/* GLITCH TITLE */
 .quote {
     font-size:64px;
     margin-bottom:20px;
-    opacity:0;
-    animation:fadeIn 1.2s ease forwards;
+    position:relative;
+    animation:flicker 3s infinite;
 }
 
+.quote::before,
+.quote::after {
+    content:attr(data-text);
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    opacity:0.6;
+}
+
+.quote::before {
+    color:#ff2b2b;
+    animation:glitch 2s infinite;
+}
+
+.quote::after {
+    color:#00ffff;
+    animation:glitch 2s infinite reverse;
+}
+
+@keyframes glitch {
+    0%{transform:translate(0)}
+    20%{transform:translate(-2px,2px)}
+    40%{transform:translate(2px,-2px)}
+    60%{transform:translate(-1px,1px)}
+    80%{transform:translate(1px,-1px)}
+    100%{transform:translate(0)}
+}
+
+@keyframes flicker {
+    0%,100% { opacity:1; }
+    50% { opacity:0.85; }
+}
+
+/* author */
 .author {
     font-family:'Inter';
     font-size:18px;
     opacity:0.6;
     margin-bottom:40px;
-    opacity:0;
-    animation:fadeIn 1.2s ease forwards;
-    animation-delay:0.5s;
 }
 
+/* red pulse text */
 .response {
     font-size:42px;
+    animation:fadeIn 1.5s ease forwards;
     opacity:0;
-    animation:fadeIn 1.2s ease forwards;
     animation-delay:1.2s;
+}
+
+.red {
+    color:#ff2b2b;
+    text-shadow:0 0 15px rgba(255,0,0,0.5);
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%,100% { transform:scale(1); text-shadow:0 0 10px rgba(255,0,0,0.4);}
+    50% { transform:scale(1.02); text-shadow:0 0 25px rgba(255,0,0,0.7);}
 }
 
 /* dots */
@@ -66,8 +115,8 @@ body {
 }
 
 @keyframes blink {
-    0%, 100% { opacity:0; }
-    50% { opacity:1; }
+    0%,100%{opacity:0;}
+    50%{opacity:1;}
 }
 
 /* button */
@@ -78,11 +127,11 @@ body {
     background:transparent;
     color:white;
     font-family:'Inter';
-    cursor:pointer;
     letter-spacing:2px;
+    cursor:pointer;
     transition:0.3s;
     opacity:0;
-    animation:fadeIn 1.2s ease forwards;
+    animation:fadeIn 1.5s ease forwards;
     animation-delay:2s;
 }
 
@@ -93,10 +142,7 @@ body {
 
 /* fade */
 @keyframes fadeIn {
-    to {
-        opacity:1;
-        transform:none;
-    }
+    to { opacity:1; }
 }
 </style>
 </head>
@@ -104,14 +150,19 @@ body {
 <body>
 
 <div class="container">
-    <div class="quote">"God is dead."</div>
-    <div class="author">— Nietzsche</div>
 
-    <div class="response">
+    <div class="quote" data-text="Coming neither soon nor not soon...">
+        Coming neither soon nor not soon...
+    </div>
+
+    <div class="author">— undefined intention</div>
+
+    <div class="response red">
         "No, I am not, you jealous bitch<span class="dots"></span>"
     </div>
 
     <button class="button" onclick="toggleMusic()">PLAY</button>
+
 </div>
 
 <audio id="music" loop>
@@ -129,7 +180,6 @@ function toggleMusic() {
         audio.volume = 0;
         audio.play();
 
-        // fade in
         let v = 0;
         let fade = setInterval(() => {
             if (v < 0.6) {
@@ -138,7 +188,7 @@ function toggleMusic() {
             } else {
                 clearInterval(fade);
             }
-        }, 150);
+        }, 120);
 
         btn.textContent = "PAUSE";
         playing = true;
