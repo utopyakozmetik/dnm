@@ -1,0 +1,183 @@
+```html id="cinema1"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    text-align:center;
+    overflow:hidden;
+    font-family:'Playfair Display', serif;
+
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)),
+                url('assets/background.jpg') no-repeat center/cover;
+}
+
+/* grain */
+body::after {
+    content:"";
+    position:absolute;
+    width:200%; height:200%;
+    background:url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity:.07;
+    animation:grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(-10%,10%);}
+}
+
+/* container */
+.container {
+    z-index:2;
+    max-width:900px;
+    padding:40px;
+    animation:fadeIn 2s ease;
+}
+
+/* text animations */
+.quote, .author, .response {
+    opacity:0;
+    transform:translateY(20px);
+    animation:reveal 1.2s ease forwards;
+}
+
+.quote { font-size:clamp(34px,5vw,64px); animation-delay:.5s; }
+.author { font-family:'Inter'; font-size:18px; opacity:.7; animation-delay:1.2s; }
+.response { font-size:clamp(30px,4.5vw,52px); margin-top:30px; animation-delay:2s; }
+
+/* glitch effect */
+.response.glitch {
+    position:relative;
+}
+.response.glitch::before,
+.response.glitch::after {
+    content:attr(data-text);
+    position:absolute;
+    left:0;
+    width:100%;
+    opacity:0.6;
+}
+.response.glitch::before {
+    color:red;
+    animation:glitch 2s infinite;
+}
+.response.glitch::after {
+    color:cyan;
+    animation:glitch 2s infinite reverse;
+}
+
+@keyframes glitch {
+    0%{transform:translate(0)}
+    20%{transform:translate(-2px,2px)}
+    40%{transform:translate(-2px,-2px)}
+    60%{transform:translate(2px,2px)}
+    80%{transform:translate(2px,-2px)}
+    100%{transform:translate(0)}
+}
+
+/* reveal */
+@keyframes reveal {
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.button {
+    margin-top:60px;
+    padding:12px 28px;
+    border:1px solid rgba(255,255,255,0.6);
+    background:transparent;
+    color:#fff;
+    cursor:pointer;
+    font-family:'Inter';
+    letter-spacing:1px;
+    transition:.3s;
+    animation:reveal 1s ease forwards;
+    animation-delay:3s;
+    opacity:0;
+}
+
+.button:hover {
+    background:#fff;
+    color:#000;
+    transform:translateY(-2px);
+}
+
+/* exit animation */
+body.exit .container {
+    animation:zoomOut 1.2s ease forwards;
+}
+
+@keyframes zoomOut {
+    to {
+        transform:scale(1.2);
+        opacity:0;
+        filter:blur(10px);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity:0; filter:blur(6px);}
+    to { opacity:1; filter:blur(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="quote">"God is dead."</div>
+    <div class="author">— Nietzsche</div>
+
+    <div class="response glitch" data-text='"No, I am not, you jealous bitch."'>
+        "No, I am not, you jealous bitch."
+    </div>
+
+    <button class="button" onclick="startExperience()">ENTER</button>
+</div>
+
+<audio id="music" loop>
+    <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function startExperience() {
+    const audio = document.getElementById("music");
+    audio.volume = 0;
+
+    audio.play();
+
+    // smooth fade-in sound
+    let vol = 0;
+    let fade = setInterval(() => {
+        if (vol < 0.6) {
+            vol += 0.05;
+            audio.volume = vol;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
+
+    // exit animation
+    document.body.classList.add("exit");
+}
+</script>
+
+</body>
+</html>
+```
