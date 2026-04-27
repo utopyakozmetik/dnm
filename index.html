@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>stable visual</title>
+<title>cinematic visual</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
@@ -21,22 +21,30 @@ body{
     font-family:'Playfair Display', serif;
 }
 
-/* BACKGROUND */
+/* 🌌 BACKGROUND (cinematic layer) */
 .bg{
     position:fixed;
     inset:0;
     width:100%;
     height:100%;
     object-fit:cover;
-    z-index:-2;
-    transition:transform 0.05s linear;
+    z-index:-3;
+    transition:transform 0.05s linear, filter 0.1s linear;
+    will-change:transform, filter;
 }
 
-/* =========================
-   TEXT SYSTEM (STABLE CORE)
-========================= */
+/* 🩸 GLOBAL DARK ENERGY LAYER */
+.vignette{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background:radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.7));
+    pointer-events:none;
+}
 
-/* base text (NEVER moves) */
+/* ================= TEXT SYSTEM ================= */
+
+/* base (stable) */
 .text-base{
     position:fixed;
     top:50%;
@@ -49,7 +57,7 @@ body{
     white-space:pre-line;
 }
 
-/* glow layer (ONLY visual effects) */
+/* glow */
 .text-glow{
     position:fixed;
     top:50%;
@@ -59,11 +67,10 @@ body{
     color:transparent;
     text-shadow:0 0 25px rgba(255,0,0,0.5);
     z-index:11;
-    pointer-events:none;
     white-space:pre-line;
 }
 
-/* shake layer (ONLY movement) */
+/* shake */
 .text-shake{
     position:fixed;
     top:50%;
@@ -72,11 +79,10 @@ body{
     font-size:64px;
     color:transparent;
     z-index:12;
-    pointer-events:none;
     white-space:pre-line;
 }
 
-/* BUTTON */
+/* 🔘 BUTTON */
 .button{
     position:fixed;
     top:50%;
@@ -92,6 +98,7 @@ body{
     backdrop-filter:blur(10px);
     border-radius:10px;
     transition:0.2s;
+    z-index:20;
 }
 
 .button:hover{
@@ -99,7 +106,7 @@ body{
     border-color:rgba(255,0,0,0.6);
 }
 
-/* STAINS */
+/* 🩸 STAINS */
 .stain-layer{
     position:fixed;
     inset:0;
@@ -127,20 +134,46 @@ body{
 
 <body>
 
+<div class="vignette"></div>
+
 <img class="bg" id="bg" src="assets/background.jpg">
 
-<!-- TEXT (3 LAYER SYSTEM) -->
-<div class="text-base" id="base">
-YOUR TEXT HERE
-</div>
-
-<div class="text-glow" id="glow">
-YOUR TEXT HERE
-</div>
-
-<div class="text-shake" id="shake">
-YOUR TEXT HERE
-</div>
+<div class="text-base" id="base">Where do I take this pain of mine?
+I run but it stays right my side
+So tear me open, pour me out
+There's things inside that scream and shout
+And the pain still hates me
+So hold me, until it sleeps
+Just like the curse, just like the stray
+You feed it once and now it stays, now it stays
+So tear me open but beware
+There's things inside without a care
+And the dirt still stains me
+So wash me, until I'm clean</div>
+<div class="text-glow" id="glow">Where do I take this pain of mine?
+I run but it stays right my side
+So tear me open, pour me out
+There's things inside that scream and shout
+And the pain still hates me
+So hold me, until it sleeps
+Just like the curse, just like the stray
+You feed it once and now it stays, now it stays
+So tear me open but beware
+There's things inside without a care
+And the dirt still stains me
+So wash me, until I'm clean</div>
+<div class="text-shake" id="shake">Where do I take this pain of mine?
+I run but it stays right my side
+So tear me open, pour me out
+There's things inside that scream and shout
+And the pain still hates me
+So hold me, until it sleeps
+Just like the curse, just like the stray
+You feed it once and now it stays, now it stays
+So tear me open but beware
+There's things inside without a care
+And the dirt still stains me
+So wash me, until I'm clean</div>
 
 <div class="stain-layer" id="stains"></div>
 
@@ -163,7 +196,7 @@ const stains = document.getElementById("stains");
 let ctx, analyser, source, dataArray;
 let playing = false;
 
-/* AUDIO INIT SAFE */
+/* 🎧 AUDIO */
 function initAudio(){
     ctx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -179,26 +212,26 @@ function initAudio(){
     loop();
 }
 
-/* STAIN */
+/* 🩸 STAIN */
 function spawnStain(p){
     const s = document.createElement("div");
     s.className = "stain";
 
-    let size = 120 + p*220;
+    let size = 120 + p*260;
 
-    s.style.left = Math.random()*window.innerWidth + "px";
-    s.style.top = Math.random()*window.innerHeight + "px";
+    s.style.left = Math.random()*innerWidth + "px";
+    s.style.top = Math.random()*innerHeight + "px";
     s.style.width = size + "px";
     s.style.height = size + "px";
 
     stains.appendChild(s);
 
-    if(stains.children.length > 12){
+    if(stains.children.length > 15){
         stains.removeChild(stains.firstChild);
     }
 }
 
-/* LOOP */
+/* 🔥 LOOP */
 function loop(){
     requestAnimationFrame(loop);
 
@@ -221,27 +254,42 @@ function loop(){
     let scale = 1 + bass*0.5;
     let shakeX = mid*10;
     let shakeY = mid*8;
-    let glowVal = (bass+treble)*80;
+    let glowVal = (bass+treble)*90;
 
-    /* ONLY SHAKE LAYER MOVES */
+    /* TEXT LAYERS */
     shake.style.transform =
     `translate(calc(-50% + ${shakeX}px), calc(-50% + ${shakeY}px)) scale(${scale})`;
 
-    /* GLOW ONLY VISUAL */
     glow.style.filter =
-    `blur(0px) drop-shadow(0 0 ${glowVal}px rgba(255,0,0,0.8))`;
+    `drop-shadow(0 0 ${glowVal}px rgba(255,0,0,0.8))`;
 
-    /* BASE NEVER MOVES */
-    base.style.transform = `translateY(-50%) scale(${scale})`;
+    base.style.transform =
+    `translateY(-50%) scale(${scale})`;
 
-    bg.style.transform = `scale(${1 + bass*0.06})`;
+    /* 🌌 BACKGROUND CAMERA EFFECT */
+    let bgScale = 1 + bass*0.08;
+    let bgX = mid * 6;
+    let bgY = treble * 4;
 
-    if(mid > 0.6 && Math.random()>0.8){
+    bg.style.transform =
+    `scale(${bgScale}) translate(${bgX}px, ${bgY}px)`;
+
+    bg.style.filter =
+    `brightness(${1 + bass*0.5}) contrast(${1 + treble*0.4}) saturate(${1 + mid*0.5})`;
+
+    /* 💥 GLITCH FLASH */
+    if(treble > 0.7 && Math.random() > 0.85){
+        bg.style.filter = "contrast(2) brightness(1.5) saturate(2)";
+        setTimeout(()=> bg.style.filter = "", 80);
+    }
+
+    /* 🩸 STAIN SYSTEM */
+    if(mid > 0.6 && Math.random() > 0.8){
         spawnStain(mid);
     }
 }
 
-/* PLAY */
+/* ▶️ PLAY */
 function toggleMusic(){
     if(!playing){
         audio.play().then(()=>{
