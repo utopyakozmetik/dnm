@@ -3,12 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Coming either soon or not soon...</title>
+<title>visual</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-
-<script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
 
 <style>
 * {
@@ -19,9 +16,9 @@
 
 body {
     height:100vh;
-    font-family:'Playfair Display', serif;
     overflow:hidden;
     background:black;
+    font-family:'Playfair Display', serif;
 }
 
 /* BACKGROUND */
@@ -33,55 +30,21 @@ body {
     height:100%;
     object-fit:cover;
     object-position:center;
-    z-index:-2;
-    transition: transform 0.08s linear;
-}
-
-/* OVERLAY */
-.overlay {
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.35);
     z-index:-1;
-    transition: background 0.08s linear;
+    transition:transform 0.05s linear;
 }
 
-/* TEXT TOP LEFT */
+/* MAIN TEXT */
 .response {
     position:fixed;
-    top:40px;
-    left:40px;
-
-    font-size:56px;
+    top:50%;
+    left:60px;
+    transform:translateY(-50%);
+    font-size:64px;
     color:#ff2b2b;
-    text-shadow:0 0 15px rgba(255,0,0,0.25);
-
-    line-height:1.1;
-    transition: transform 0.08s linear, filter 0.08s linear;
-}
-
-/* SECOND LINE INDENT */
-.indent {
-    display:block;
-    margin-left:60px;
-}
-
-/* GLITCH */
-.response::before {
-    content: attr(data-text);
-    position:absolute;
-    left:0;
-    top:0;
-    color:rgba(255,0,0,0.3);
-    animation:glitch 3s infinite;
-}
-
-@keyframes glitch {
-    0%,100% { transform:translate(0); opacity:0.2; }
-    50% { transform:translate(2px,-1px); opacity:0.4; }
+    line-height:1.05;
+    text-shadow:0 0 25px rgba(255,0,0,0.4);
+    z-index:2;
 }
 
 /* BUTTON */
@@ -89,7 +52,6 @@ body {
     position:absolute;
     bottom:80px;
     left:40px;
-
     padding:12px 26px;
     border:1px solid rgba(255,255,255,0.6);
     background:transparent;
@@ -104,72 +66,131 @@ body {
     position:fixed;
     right:20px;
     bottom:20px;
-
     font-family:'Inter';
     font-size:13px;
     opacity:0.6;
-
     padding:6px 10px;
     border:1px solid rgba(255,255,255,0.15);
     border-radius:6px;
-
     backdrop-filter:blur(6px);
+}
+
+/* STAINS */
+.stain-layer {
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+    mix-blend-mode:multiply;
+}
+
+.stain {
+    position:absolute;
+    width:200px;
+    height:200px;
+    background:radial-gradient(circle, rgba(120,0,0,0.35), transparent 70%);
+    border-radius:50%;
+    filter:blur(20px);
+    animation:fade 0.6s ease;
+}
+
+@keyframes fade {
+    from { opacity:0; transform:scale(0.5); }
+    to { opacity:1; transform:scale(1); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND -->
 <img class="bg" id="bg" src="assets/background.jpg">
-<div class="overlay"></div>
 
-<!-- TEXT -->
-<div class="response" data-text="Nadanı arzulamayan...">
-    Nadanı<br>
-    <span class="indent">arzulamayan...</span>
+<div class="response" id="text">
+<!-- 🔴 Where do I take this pain of mine?<br>
+I run but it stays right my side<br><br>
+So tear me open, pour me out<br>
+There's things inside that scream and shout<br>
+And the pain still hates me<br>
+So hold me, until it sleeps<br><br>
+Just like the curse, just like the stray<br>
+You feed it once and now it stays, now it stays<br>
+So tear me open but beware<br>
+There's things inside without a care<br>
+And the dirt still stains me<br>
+SO WASH ME , UNTIL I'M CLEAN<br><br>
+It grips you, so hold me<br>
+It stains you, so hold me<br>
+It hates you, so hold me<br>
+It holds you, so hold me<br>
+Until it sleeps (until it sleeps, until it sleeps)<br><br>
+So tell me why you've chosen me<br>
+Don't want your grip, don't want your greed, don't want it<br>
+I'll tear me open, make you gone<br>
+No more can you hurt anyone<br>
+And the fear still shakes me<br>
+So hold me, until it sleeps<br><br>
+
 </div>
 
-<!-- BUTTON -->
+<div class="stain-layer" id="stains"></div>
+
 <button class="button" onclick="toggleMusic()">PLAY</button>
+<div class="track" id="track"></div>
 
-<!-- TRACK -->
-<div class="track" id="trackName"></div>
-
-<!-- AUDIO -->
-<audio id="music" loop preload="auto" crossorigin="anonymous">
-    <source src="assets/music.flac?v=3" type="audio/x-flac">
-    <source src="assets/music.mp3?v=3" type="audio/mpeg">
+<audio id="audio" loop>
+    <source src="assets/music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const audio = document.getElementById("music");
-const btn = document.querySelector(".button");
-const text = document.querySelector(".response");
+const audio = document.getElementById("audio");
+const text = document.getElementById("text");
 const bg = document.getElementById("bg");
-const track = document.getElementById("trackName");
+const track = document.getElementById("track");
+const stains = document.getElementById("stains");
 
-let playing = false;
 let ctx, analyser, source, dataArray;
+let playing = false;
+let last = -1;
 
-/* TRACK NAME */
-function setTrackName() {
-    const src = audio.querySelector("source");
-    let name = src.getAttribute("src")
-        .split("/")
-        .pop()
-        .replace(/\?.*$/, "")
-        .replace(/\.(mp3|flac|wav)/, "");
+/* LYRIC TRIGGERS (istersen genişlet) */
+const points = [
+  { t: 10 },
+  { t: 18 },
+  { t: 26 },
+  { t: 40 }
+];
 
-    track.textContent = "♪ " + name;
+/* STAIN */
+function spawnStain(p) {
+    const s = document.createElement("div");
+    s.className = "stain";
+    s.style.left = Math.random()*innerWidth + "px";
+    s.style.top = Math.random()*innerHeight + "px";
+    s.style.width = 100 + p*200 + "px";
+    s.style.height = 100 + p*200 + "px";
+
+    stains.appendChild(s);
+
+    if (stains.children.length > 12)
+        stains.removeChild(stains.firstChild);
 }
 
-/* AUDIO */
-function initAudio() {
-    ctx = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = ctx.createAnalyser();
+/* EXPLODE */
+function explode() {
+    text.style.transform += " scale(1.5)";
+    text.style.filter = "brightness(2) blur(2px)";
+    bg.style.transform += " scale(1.1)";
+    spawnStain(1);
 
+    setTimeout(() => text.style.filter = "", 120);
+}
+
+/* AUDIO INIT */
+function init() {
+    ctx = new AudioContext();
+    analyser = ctx.createAnalyser();
     source = ctx.createMediaElementSource(audio);
+
     source.connect(analyser);
     analyser.connect(ctx.destination);
 
@@ -179,78 +200,84 @@ function initAudio() {
     loop();
 }
 
-/* BEAT LOOP */
-function loop() {
+/* SYNC */
+function sync() {
+    const t = audio.currentTime;
+    points.forEach((p,i)=>{
+        if(Math.abs(t - p.t) < 0.15 && last !== i){
+            explode();
+            last = i;
+        }
+    });
+}
+
+/* LOOP */
+function loop(){
     requestAnimationFrame(loop);
 
     analyser.getByteFrequencyData(dataArray);
 
-    let bass = 0;
-    for (let i = 2; i < 15; i++) {
-        bass += dataArray[i];
+    let bass=0,mid=0,treble=0;
+
+    for(let i=0;i<dataArray.length;i++){
+        if(i<20) bass+=dataArray[i];
+        else if(i<80) mid+=dataArray[i];
+        else treble+=dataArray[i];
     }
-    bass /= 13;
 
-    // TEXT BEAT
-    let scale = 1 + (bass / 255) * 0.35;
-    let glow = (bass / 255) * 25;
+    bass/=20; mid/=60; treble/= (dataArray.length-80);
 
-    text.style.transform = `scale(${scale})`;
-    text.style.filter = `drop-shadow(0 0 ${glow}px rgba(255,0,0,0.7))`;
+    bass=Math.pow(bass/255,1.5);
+    mid=Math.pow(mid/255,1.3);
+    treble=Math.pow(treble/255,1.1);
 
-    // BACKGROUND ZOOM (controlled)
-    let bgScale = 1 + (bass / 255) * 0.03;
-    bg.style.transform = `scale(${bgScale})`;
+    let scale = 1 + bass*0.6;
+    let shake = mid*10;
+    let glow = (bass+treble)*60;
 
-    // LIGHT PULSE
-    document.querySelector(".overlay").style.background =
-        `rgba(0,0,0,${0.35 + (bass/255)*0.25})`;
+    text.style.transform =
+    `translateY(-50%) translate(${shake}px,${-shake}px) scale(${scale})`;
+
+    text.style.filter =
+    `drop-shadow(0 0 ${glow}px rgba(255,0,0,0.9))`;
+
+    bg.style.transform =
+    `scale(${1 + bass*0.08})`;
+
+    if(treble > 0.6){
+        text.style.textShadow = "3px 0 red,-3px 0 blue";
+    } else {
+        text.style.textShadow = "0 0 25px rgba(255,0,0,0.4)";
+    }
+
+    if(mid > 0.5 && Math.random()>0.7){
+        spawnStain(mid);
+    }
+
+    sync();
 }
 
-/* MUSIC */
-function startMusic() {
-    audio.volume = 0;
+/* PLAY */
+function play(){
     audio.play();
-
-    let v = 0;
-    let fade = setInterval(() => {
-        if (v < 0.6) {
-            v += 0.05;
-            audio.volume = v;
-        } else {
-            clearInterval(fade);
-        }
-    }, 120);
-
-    if (!ctx) initAudio();
+    if(!ctx) init();
 }
 
-/* BUTTON */
-function toggleMusic() {
-    if (!playing) {
-        startMusic();
-        btn.textContent = "PAUSE";
-        playing = true;
+/* TOGGLE */
+function toggleMusic(){
+    if(!playing){
+        play();
+        playing=true;
     } else {
         audio.pause();
-        btn.textContent = "PLAY";
-        playing = false;
+        playing=false;
     }
 }
 
 /* INIT */
-window.addEventListener("DOMContentLoaded", () => {
-    setTrackName();
-
-    const p = audio.play();
-    if (p !== undefined) {
-        p.then(() => {
-            startMusic();
-            btn.textContent = "PAUSE";
-            playing = true;
-        }).catch(() => {});
-    }
-});
+window.onload=()=>{
+    track.textContent="♪ asset track";
+};
 </script>
 
 </body>
