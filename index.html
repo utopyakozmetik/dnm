@@ -3,9 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>cinematic engine</title>
+<title>visual</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<!-- 📊 VERCEL ANALYTICS (FIXED) -->
+<script>
+  window.va = window.va || function () {
+    (window.vaq = window.vaq || []).push(arguments);
+  };
+</script>
+<script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
 
 <style>
 *{
@@ -30,7 +38,6 @@ body{
     object-fit:cover;
     z-index:-3;
     transition:transform 0.05s linear, filter 0.08s linear;
-    will-change:transform, filter;
 }
 
 /* 🧠 VIGNETTE */
@@ -38,17 +45,18 @@ body{
     position:fixed;
     inset:0;
     z-index:-2;
-    background:radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.8));
+    background:radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.85));
 }
 
-/* ================= TEXT ENGINE ================= */
+/* ================= TEXT SYSTEM ================= */
 
-.text-base, .text-glow, .text-shake{
+.text-base,
+.text-glow,
+.text-shake{
     position:fixed;
     top:50%;
     left:140px;
-    transform:translateY(-50%);
-    font-size:24px;
+    font-size:42px; /* 🔥 küçültüldü */
     line-height:1.05;
     white-space:pre-line;
 }
@@ -68,7 +76,7 @@ body{
     color:transparent;
     z-index:11;
     pointer-events:none;
-    text-shadow:0 0 40px rgba(255,0,0,0.6);
+    text-shadow:0 0 45px rgba(255,0,0,0.6);
 }
 
 /* shake */
@@ -78,7 +86,20 @@ body{
     pointer-events:none;
 }
 
-/* BUTTON */
+/* 🎬 REELS FLOAT MOTION */
+.text-base,
+.text-glow,
+.text-shake{
+    animation: floatDown 6s linear infinite;
+}
+
+@keyframes floatDown{
+    0%{ transform:translateY(-60%); }
+    50%{ transform:translateY(-45%); }
+    100%{ transform:translateY(-30%); }
+}
+
+/* 🔘 BUTTON */
 .button{
     position:fixed;
     top:50%;
@@ -96,7 +117,7 @@ body{
     z-index:20;
 }
 
-/* 🩸 STAIN */
+/* 🩸 STAINS */
 .stain-layer{
     position:fixed;
     inset:0;
@@ -125,44 +146,12 @@ body{
 <body>
 
 <div class="vignette"></div>
+
 <img class="bg" id="bg" src="assets/background.jpg">
 
-<div class="text-base" id="base">Where do I take this pain of mine?<br>
-I run but it stays right my side<br>
-So tear me open, pour me out<br>
-There's things inside that scream and shout<br>
-And the pain still hates me<br>
-So hold me, until it sleeps<br><br>
-Just like the curse, just like the stray<br>
-You feed it once and now it stays, now it stays<br>
-So tear me open but beware<br>
-There's things inside without a care<br>
-And the dirt still stains me<br>
-!!!!SO WASH ME UNTIL I'M CLEAN!!!!</div>
-<div class="text-glow" id="glow">Where do I take this pain of mine?
-I run but it stays right my side
-So tear me open, pour me out
-There's things inside that scream and shout
-And the pain still hates me
-So hold me, until it sleeps
-Just like the curse, just like the stray
-You feed it once and now it stays, now it stays
-So tear me open but beware
-There's things inside without a care
-And the dirt still stains me
-So wash me, until I'm clean</div>
-<div class="text-shake" id="shake">Where do I take this pain of mine?
-I run but it stays right my side
-So tear me open, pour me out
-There's things inside that scream and shout
-And the pain still hates me
-So hold me, until it sleeps
-Just like the curse, just like the stray
-You feed it once and now it stays, now it stays
-So tear me open but beware
-There's things inside without a care
-And the dirt still stains me
-So wash me, until I'm clean</div>
+<div class="text-base" id="base">YOUR TEXT HERE</div>
+<div class="text-glow" id="glow">YOUR TEXT HERE</div>
+<div class="text-shake" id="shake">YOUR TEXT HERE</div>
 
 <div class="stain-layer" id="stains"></div>
 
@@ -185,7 +174,7 @@ const stains = document.getElementById("stains");
 let ctx, analyser, source, dataArray;
 let playing = false;
 
-/* 🎧 AUDIO */
+/* 🎧 AUDIO INIT */
 function initAudio(){
     ctx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -206,7 +195,7 @@ function spawnStain(p){
     const s = document.createElement("div");
     s.className = "stain";
 
-    let size = 120 + p*280;
+    let size = 120 + p*260;
 
     s.style.left = Math.random()*innerWidth + "px";
     s.style.top = Math.random()*innerHeight + "px";
@@ -218,19 +207,6 @@ function spawnStain(p){
     if(stains.children.length > 18){
         stains.removeChild(stains.firstChild);
     }
-}
-
-/* 💥 DROP EFFECT */
-let freeze = false;
-function drop(){
-    freeze = true;
-
-    base.style.transform += " scale(1.2)";
-    bg.style.filter = "brightness(1.8) contrast(2)";
-
-    setTimeout(()=>{
-        freeze = false;
-    },150);
 }
 
 /* 🔥 LOOP */
@@ -249,44 +225,36 @@ function loop(){
 
     bass/=20; mid/=60; treble/= (dataArray.length-80);
 
-    bass=Math.pow(bass/255,2.4);
-    mid=Math.pow(mid/255,1.9);
-    treble=Math.pow(treble/255,1.7);
+    bass=Math.pow(bass/255,2.2);
+    mid=Math.pow(mid/255,1.8);
+    treble=Math.pow(treble/255,1.6);
 
-    let scale = 1 + bass*0.55;
-    let shakeX = mid*12;
-    let shakeY = mid*10;
+    let scale = 1 + bass*0.5;
+    let shakeX = mid*10;
+    let shakeY = mid*8;
 
-    if(!freeze){
-        shake.style.transform =
-        `translate(calc(-50% + ${shakeX}px), calc(-50% + ${shakeY}px)) scale(${scale})`;
-
-        base.style.transform =
-        `translateY(-50%) scale(${scale})`;
-    }
+    /* 🎯 TEXT MOTION (SAFE) */
+    shake.style.transform =
+    `translate(calc(-50% + ${shakeX}px), calc(-50% + ${shakeY}px)) scale(${scale})`;
 
     glow.style.filter =
-    `drop-shadow(0 0 ${(bass+treble)*100}px rgba(255,0,0,0.8))`;
+    `drop-shadow(0 0 ${(bass+treble)*90}px rgba(255,0,0,0.8))`;
 
-    /* 🌌 BG CAMERA + WARP */
+    base.style.transform =
+    `translateY(-50%) scale(${scale})`;
+
+    /* 🌌 BACKGROUND CINEMATIC */
     let bgX = (mid - bass) * 10;
     let bgY = (treble - mid) * 8;
 
     bg.style.transform =
     `scale(${1 + bass*0.1}) translate(${bgX}px, ${bgY}px)`;
 
-    let hue = (treble - bass) * 30;
-
     bg.style.filter =
     `brightness(${1 + bass*0.5})
-     contrast(${1 + treble*0.6})
-     saturate(${1 + mid})
-     hue-rotate(${hue}deg)`;
-
-    /* 💥 DROP TRIGGER */
-    if(bass > 0.75 && Math.random() > 0.92){
-        drop();
-    }
+     contrast(${1 + treble*0.5})
+     saturate(${1 + mid*0.7})
+     hue-rotate(${(treble-bass)*30}deg)`;
 
     /* 🩸 STAIN */
     if(mid > 0.6 && Math.random() > 0.8){
