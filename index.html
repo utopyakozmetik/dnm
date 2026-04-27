@@ -3,22 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>visual</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<title>debug</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
+    margin:0;
     height:100vh;
-    overflow:hidden;
     background:black;
-    font-family:'Playfair Display', serif;
+    overflow:hidden;
 }
 
 /* BACKGROUND */
@@ -29,230 +21,62 @@ body{
     height:100%;
     object-fit:cover;
     z-index:-1;
-    transition:transform 0.05s linear;
 }
 
-/* TEXT */
+/* TEXT (DEBUG) */
 .response{
     position:fixed;
     top:50%;
-    left:60px;
+    left:200px; /* 🔥 SAĞA KAYDIRILDI */
 
+    transform:translateY(-50%);
     font-size:64px;
-    color:#ff2b2b;
-    line-height:1.05;
-    text-shadow:0 0 25px rgba(255,0,0,0.4);
+    color:red;
+    z-index:999;
 
-    z-index:10;
-    will-change:transform;
+    background:rgba(0,0,0,0.3);
+    padding:10px;
 }
 
-/* BUTTON CENTER */
+/* BUTTON */
 .button{
     position:fixed;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-
-    padding:14px 34px;
-    border:1px solid rgba(255,255,255,0.7);
-    background:rgba(0,0,0,0.4);
-    color:white;
-    font-family:'Inter';
-    letter-spacing:3px;
+    top:20px;
+    left:20px;
+    padding:10px 20px;
     cursor:pointer;
-
-    backdrop-filter:blur(10px);
-    border-radius:10px;
-
-    transition:0.25s ease;
-}
-
-.button:hover{
-    background:rgba(255,0,0,0.15);
-    border-color:rgba(255,0,0,0.6);
-    transform:translate(-50%,-50%) scale(1.05);
-}
-
-/* TRACK */
-.track{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    font-family:'Inter';
-    font-size:13px;
-    opacity:0.6;
-    padding:6px 10px;
-    border:1px solid rgba(255,255,255,0.15);
-    border-radius:6px;
-    backdrop-filter:blur(6px);
-}
-
-/* STAINS */
-.stain-layer{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:1;
-    mix-blend-mode:multiply;
-}
-
-.stain{
-    position:absolute;
-    width:200px;
-    height:200px;
-    background:radial-gradient(circle, rgba(120,0,0,0.35), transparent 70%);
-    border-radius:50%;
-    filter:blur(20px);
-    animation:fade 0.6s ease;
-}
-
-@keyframes fade{
-    from{opacity:0;transform:scale(0.5);}
-    to{opacity:1;transform:scale(1);}
 }
 </style>
 </head>
 
 <body>
 
-<img class="bg" id="bg" src="assets/background.jpg">
+<img class="bg" src="assets/background.jpg">
 
 <div class="response" id="text">
-<!-- 🔴 YOUR TEXT HERE -->
+VISIBLE TEST TEXT
 </div>
 
-<div class="stain-layer" id="stains"></div>
-
-<button class="button" onclick="toggleMusic()">PLAY</button>
-<div class="track" id="track"></div>
-
-<audio id="audio" loop>
-    <source src="assets/music.mp3" type="audio/mpeg">
-</audio>
+<button class="button" onclick="test()">MOVE TEST</button>
 
 <script>
-const audio = document.getElementById("audio");
 const text = document.getElementById("text");
-const bg = document.getElementById("bg");
-const track = document.getElementById("track");
-const stains = document.getElementById("stains");
 
-let ctx, analyser, source, dataArray;
-let playing = false;
-
-/* INIT AUDIO */
-function initAudio(){
-    ctx = new (window.AudioContext || window.webkitAudioContext)();
-
-    analyser = ctx.createAnalyser();
-    source = ctx.createMediaElementSource(audio);
-
-    source.connect(analyser);
-    analyser.connect(ctx.destination);
-
-    analyser.fftSize = 256;
-    dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-    loop();
+/* SADECE KAYDIRMA TESTİ */
+function test(){
+    text.style.left = "400px";
+    text.style.color = "lime";
+    text.innerText = "IT WORKS";
 }
 
-/* STAIN */
-function spawnStain(p){
-    const s = document.createElement("div");
-    s.className = "stain";
+/* otomatik test */
+setTimeout(()=>{
+    text.style.left = "300px";
+},1000);
 
-    let size = 100 + p*250;
-
-    s.style.left = Math.random()*innerWidth + "px";
-    s.style.top = Math.random()*innerHeight + "px";
-    s.style.width = size + "px";
-    s.style.height = size + "px";
-
-    stains.appendChild(s);
-
-    if(stains.children.length > 12){
-        stains.removeChild(stains.firstChild);
-    }
-}
-
-/* EXPLODE */
-function explode(){
-    text.style.transform += " scale(1.6)";
-    text.style.filter = "brightness(2.2) blur(2px)";
-    bg.style.transform += " scale(1.1)";
-
-    spawnStain(1.2);
-
-    setTimeout(()=>{
-        text.style.filter = "";
-    },120);
-}
-
-/* LOOP */
-function loop(){
-    requestAnimationFrame(loop);
-
-    analyser.getByteFrequencyData(dataArray);
-
-    let bass=0, mid=0, treble=0;
-
-    for(let i=0;i<dataArray.length;i++){
-        if(i<20) bass += dataArray[i];
-        else if(i<80) mid += dataArray[i];
-        else treble += dataArray[i];
-    }
-
-    bass /= 20;
-    mid /= 60;
-    treble /= (dataArray.length-80);
-
-    bass = Math.pow(bass/255,2.2);
-    mid = Math.pow(mid/255,1.8);
-    treble = Math.pow(treble/255,1.6);
-
-    let scale = 1 + bass*0.6;
-    let shake = mid*12;
-    let glow = (bass+treble)*70;
-
-    /* FIXED TEXT POSITION (NO DISAPPEAR BUG) */
-    text.style.transform =
-    `translate(${60 + shake}px, calc(-50% + ${-shake}px)) scale(${scale})`;
-
-    text.style.filter =
-    `drop-shadow(0 0 ${glow}px rgba(255,0,0,0.9))`;
-
-    bg.style.transform =
-    `scale(${1 + bass*0.08})`;
-
-    if(treble > 0.65){
-        text.style.textShadow = "3px 0 red,-3px 0 blue";
-    } else {
-        text.style.textShadow = "0 0 25px rgba(255,0,0,0.4)";
-    }
-
-    if(mid > 0.6 && Math.random() > 0.8){
-        spawnStain(mid);
-    }
-}
-
-/* PLAY SAFE */
-function toggleMusic(){
-    if(!playing){
-        audio.play().then(()=>{
-            if(!ctx) initAudio();
-        });
-        playing = true;
-    } else {
-        audio.pause();
-        playing = false;
-    }
-}
-
-/* INIT */
-window.onload = () => {
-    track.textContent = "♪ asset track";
-};
+setTimeout(()=>{
+    text.style.left = "500px";
+},2000);
 </script>
 
 </body>
