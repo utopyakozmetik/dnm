@@ -3,14 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>debug</title>
+<title>stable visual</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-body{
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
     height:100vh;
-    background:black;
     overflow:hidden;
+    background:black;
+    font-family:'Playfair Display', serif;
 }
 
 /* BACKGROUND */
@@ -20,63 +28,231 @@ body{
     width:100%;
     height:100%;
     object-fit:cover;
-    z-index:-1;
+    z-index:-2;
+    transition:transform 0.05s linear;
 }
 
-/* TEXT (DEBUG) */
-.response{
+/* =========================
+   TEXT SYSTEM (STABLE CORE)
+========================= */
+
+/* base text (NEVER moves) */
+.text-base{
     position:fixed;
     top:50%;
-    left:200px; /* 🔥 SAĞA KAYDIRILDI */
-
+    left:60px;
     transform:translateY(-50%);
     font-size:64px;
-    color:red;
-    z-index:999;
+    color:#ff2b2b;
+    line-height:1.05;
+    z-index:10;
+    white-space:pre-line;
+}
 
-    background:rgba(0,0,0,0.3);
-    padding:10px;
+/* glow layer (ONLY visual effects) */
+.text-glow{
+    position:fixed;
+    top:50%;
+    left:60px;
+    transform:translateY(-50%);
+    font-size:64px;
+    color:transparent;
+    text-shadow:0 0 25px rgba(255,0,0,0.5);
+    z-index:11;
+    pointer-events:none;
+    white-space:pre-line;
+}
+
+/* shake layer (ONLY movement) */
+.text-shake{
+    position:fixed;
+    top:50%;
+    left:60px;
+    transform:translateY(-50%);
+    font-size:64px;
+    color:transparent;
+    z-index:12;
+    pointer-events:none;
+    white-space:pre-line;
 }
 
 /* BUTTON */
 .button{
     position:fixed;
-    top:20px;
-    left:20px;
-    padding:10px 20px;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding:14px 34px;
+    border:1px solid rgba(255,255,255,0.7);
+    background:rgba(0,0,0,0.4);
+    color:white;
+    font-family:'Inter';
+    letter-spacing:3px;
     cursor:pointer;
+    backdrop-filter:blur(10px);
+    border-radius:10px;
+    transition:0.2s;
+}
+
+.button:hover{
+    background:rgba(255,0,0,0.15);
+    border-color:rgba(255,0,0,0.6);
+}
+
+/* STAINS */
+.stain-layer{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+    mix-blend-mode:multiply;
+}
+
+.stain{
+    position:absolute;
+    width:200px;
+    height:200px;
+    background:radial-gradient(circle, rgba(120,0,0,0.35), transparent 70%);
+    border-radius:50%;
+    filter:blur(20px);
+    animation:fade 0.6s ease;
+}
+
+@keyframes fade{
+    from{opacity:0;transform:scale(0.5);}
+    to{opacity:1;transform:scale(1);}
 }
 </style>
 </head>
 
 <body>
 
-<img class="bg" src="assets/background.jpg">
+<img class="bg" id="bg" src="assets/background.jpg">
 
-<div class="response" id="text">
-VISIBLE TEST TEXT
+<!-- TEXT (3 LAYER SYSTEM) -->
+<div class="text-base" id="base">
+YOUR TEXT HERE
 </div>
 
-<button class="button" onclick="test()">MOVE TEST</button>
+<div class="text-glow" id="glow">
+YOUR TEXT HERE
+</div>
+
+<div class="text-shake" id="shake">
+YOUR TEXT HERE
+</div>
+
+<div class="stain-layer" id="stains"></div>
+
+<button class="button" onclick="toggleMusic()">PLAY</button>
+
+<audio id="audio" loop>
+    <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-const text = document.getElementById("text");
+const audio = document.getElementById("audio");
 
-/* SADECE KAYDIRMA TESTİ */
-function test(){
-    text.style.left = "400px";
-    text.style.color = "lime";
-    text.innerText = "IT WORKS";
+const base = document.getElementById("base");
+const glow = document.getElementById("glow");
+const shake = document.getElementById("shake");
+
+const bg = document.getElementById("bg");
+const stains = document.getElementById("stains");
+
+let ctx, analyser, source, dataArray;
+let playing = false;
+
+/* AUDIO INIT SAFE */
+function initAudio(){
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+    analyser = ctx.createAnalyser();
+    source = ctx.createMediaElementSource(audio);
+
+    source.connect(analyser);
+    analyser.connect(ctx.destination);
+
+    analyser.fftSize = 256;
+    dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+    loop();
 }
 
-/* otomatik test */
-setTimeout(()=>{
-    text.style.left = "300px";
-},1000);
+/* STAIN */
+function spawnStain(p){
+    const s = document.createElement("div");
+    s.className = "stain";
 
-setTimeout(()=>{
-    text.style.left = "500px";
-},2000);
+    let size = 120 + p*220;
+
+    s.style.left = Math.random()*window.innerWidth + "px";
+    s.style.top = Math.random()*window.innerHeight + "px";
+    s.style.width = size + "px";
+    s.style.height = size + "px";
+
+    stains.appendChild(s);
+
+    if(stains.children.length > 12){
+        stains.removeChild(stains.firstChild);
+    }
+}
+
+/* LOOP */
+function loop(){
+    requestAnimationFrame(loop);
+
+    analyser.getByteFrequencyData(dataArray);
+
+    let bass=0, mid=0, treble=0;
+
+    for(let i=0;i<dataArray.length;i++){
+        if(i<20) bass += dataArray[i];
+        else if(i<80) mid += dataArray[i];
+        else treble += dataArray[i];
+    }
+
+    bass/=20; mid/=60; treble/= (dataArray.length-80);
+
+    bass=Math.pow(bass/255,2.2);
+    mid=Math.pow(mid/255,1.8);
+    treble=Math.pow(treble/255,1.6);
+
+    let scale = 1 + bass*0.5;
+    let shakeX = mid*10;
+    let shakeY = mid*8;
+    let glowVal = (bass+treble)*80;
+
+    /* ONLY SHAKE LAYER MOVES */
+    shake.style.transform =
+    `translate(calc(-50% + ${shakeX}px), calc(-50% + ${shakeY}px)) scale(${scale})`;
+
+    /* GLOW ONLY VISUAL */
+    glow.style.filter =
+    `blur(0px) drop-shadow(0 0 ${glowVal}px rgba(255,0,0,0.8))`;
+
+    /* BASE NEVER MOVES */
+    base.style.transform = `translateY(-50%) scale(${scale})`;
+
+    bg.style.transform = `scale(${1 + bass*0.06})`;
+
+    if(mid > 0.6 && Math.random()>0.8){
+        spawnStain(mid);
+    }
+}
+
+/* PLAY */
+function toggleMusic(){
+    if(!playing){
+        audio.play().then(()=>{
+            if(!ctx) initAudio();
+        });
+        playing = true;
+    } else {
+        audio.pause();
+        playing = false;
+    }
+}
 </script>
 
 </body>
