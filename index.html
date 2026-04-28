@@ -15,24 +15,43 @@ body{
 /* Sol taraf video */
 .video-half{
   flex:1;
+  position:relative;
   overflow:hidden;
 }
 .video-half video{
   width:100%;
   height:100%;
   object-fit:cover;
-  animation:glitch 2s infinite;
+  animation:glitch 1.5s infinite;
 }
 
-/* Glitch animasyonu */
+/* Yoğun glitch + pixelizasyon */
 @keyframes glitch {
-  0%   { transform:translate(0,0); filter:hue-rotate(0deg) contrast(1); }
-  10%  { transform:translate(-2px,2px); filter:hue-rotate(20deg) contrast(1.3); }
-  20%  { transform:translate(2px,-2px); filter:hue-rotate(-20deg) contrast(0.9); }
-  30%  { transform:translate(-1px,1px); filter:brightness(1.2); }
-  40%  { transform:translate(1px,-1px); filter:hue-rotate(10deg) contrast(1.1); }
-  50%  { transform:translate(0,0); filter:hue-rotate(-10deg); }
-  100% { transform:translate(0,0); filter:hue-rotate(0deg) contrast(1); }
+  0%   { transform:translate(0,0) scale(1); filter:contrast(1) saturate(1); }
+  10%  { transform:translate(-4px,2px) scale(1.02); filter:hue-rotate(30deg) contrast(1.4) saturate(1.3) blur(1px); }
+  20%  { transform:translate(3px,-3px) scale(0.98); filter:hue-rotate(-25deg) contrast(0.8) saturate(1.5); }
+  30%  { transform:translate(-2px,1px) scale(1.05); filter:brightness(1.3) contrast(1.2) saturate(1.6) blur(2px); }
+  40%  { transform:translate(2px,-2px) scale(1.01); filter:hue-rotate(15deg) contrast(1.5) saturate(1.2); }
+  50%  { transform:translate(-1px,1px) scale(1.03); filter:hue-rotate(-10deg) contrast(1.1) saturate(1.4) blur(1px); }
+  60%  { transform:translate(0,0) scale(1); filter:contrast(1) saturate(1); }
+  100% { transform:translate(0,0) scale(1); filter:contrast(1) saturate(1); }
+}
+
+/* Play/Pause butonu ortada */
+.play-btn{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  padding:14px 28px;
+  background:rgba(0,0,0,0.6);
+  color:white;
+  font-family:'Inter', sans-serif;
+  font-size:18px;
+  border:1px solid rgba(255,255,255,0.7);
+  border-radius:8px;
+  cursor:pointer;
+  z-index:10;
 }
 
 /* Sağ taraf background */
@@ -42,7 +61,7 @@ body{
   background:url("assets/background.jpg") center center / cover no-repeat;
 }
 
-/* Alt yazı */
+/* Alt yazı sol alt */
 .bg-half .caption{
   position:absolute;
   bottom:20px;
@@ -57,9 +76,10 @@ body{
 <body>
 
 <div class="video-half">
-  <video id="video" autoplay loop>
+  <video id="video" autoplay loop controlslist="nodownload noremoteplayback">
     <source src="assets/video.mp4" type="video/mp4">
   </video>
+  <button class="play-btn" onclick="toggleVideo()">PLAY</button>
 </div>
 
 <div class="bg-half">
@@ -68,7 +88,18 @@ body{
 
 <script>
 const vid = document.getElementById("video");
-vid.volume = 0.5; // başlangıç sesi yarım
+const btn = document.querySelector(".play-btn");
+vid.volume = 1.0; // sesi tam açık
+
+function toggleVideo(){
+  if(vid.paused){
+    vid.play();
+    btn.textContent = "PAUSE";
+  } else {
+    vid.pause();
+    btn.textContent = "PLAY";
+  }
+}
 </script>
 
 </body>
