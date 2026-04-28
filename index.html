@@ -21,6 +21,18 @@ body{
   width:100%;
   height:100%;
   object-fit:cover;
+  animation:glitch 2s infinite;
+}
+
+/* Glitch animasyonu */
+@keyframes glitch {
+  0%   { transform:translate(0,0); filter:hue-rotate(0deg) contrast(1); }
+  10%  { transform:translate(-2px,2px); filter:hue-rotate(20deg) contrast(1.3); }
+  20%  { transform:translate(2px,-2px); filter:hue-rotate(-20deg) contrast(0.9); }
+  30%  { transform:translate(-1px,1px); filter:brightness(1.2); }
+  40%  { transform:translate(1px,-1px); filter:hue-rotate(10deg) contrast(1.1); }
+  50%  { transform:translate(0,0); filter:hue-rotate(-10deg); }
+  100% { transform:translate(0,0); filter:hue-rotate(0deg) contrast(1); }
 }
 
 /* Sağ taraf background */
@@ -34,20 +46,18 @@ body{
 .bg-half .caption{
   position:absolute;
   bottom:20px;
-  width:100%;
-  text-align:center;
+  left:20px;
   font-family:'Playfair Display', serif;
   font-size:28px;
-  color:white;
-  letter-spacing:3px;
-  text-shadow:0 0 8px rgba(0,0,0,0.8);
+  color:#4B2E2E; /* koyu sütlü kahve */
+  text-shadow:0 0 6px rgba(0,0,0,0.6);
 }
 </style>
 </head>
 <body>
 
 <div class="video-half">
-  <video autoplay muted loop>
+  <video id="video" autoplay loop>
     <source src="assets/video.mp4" type="video/mp4">
   </video>
 </div>
@@ -55,6 +65,11 @@ body{
 <div class="bg-half">
   <div class="caption">...sooner or later...</div>
 </div>
+
+<script>
+const vid = document.getElementById("video");
+vid.volume = 0.5; // başlangıç sesi yarım
+</script>
 
 </body>
 </html>
