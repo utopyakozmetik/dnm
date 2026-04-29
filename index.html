@@ -3,44 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tam Sayfa Background + Lyrics + Müzik</title>
+<title>Sola bg.jpg + Ortada Lyrics + Sağa background.jpg</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
   height:100vh;
-  background:black url('assets/background.jpg') no-repeat center center;
-  background-size:contain; /* taşmadan sığdırır */
   display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  color:white;
+  background:black;
   font-family:"Segoe UI", sans-serif;
-  overflow:auto;
+  color:white;
+  overflow:hidden; /* slider vs çıkmasın */
+}
+
+/* Sol görsel */
+.left-side {
+  flex:1;
+  background:url('assets/bg.jpg') no-repeat center center;
+  background-size:contain;
+  margin:10px;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.7);
   animation: bgPulse 6s infinite alternate;
 }
 
-/* Lyrics kutusu */
+/* Ortadaki lyrics kutusu */
 .lyrics {
-  max-width:900px;
+  flex:1;
   background:rgba(20,20,20,0.75);
   padding:40px;
   border-radius:12px;
   line-height:1.6;
   white-space:pre-line;
-  text-align:left; /* sola yaslama */
+  text-align:left;
   box-shadow:0 8px 20px rgba(0,0,0,0.7);
   border:1px solid rgba(255,255,255,0.2);
+  margin:10px;
+  overflow:auto;
   animation: textGlow 3s infinite alternate;
+}
+
+/* Sağ görsel */
+.right-side {
+  flex:1;
+  background:url('assets/background.jpg') no-repeat center center;
+  background-size:contain;
+  margin:10px;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.7);
+  animation: bgPulse 6s infinite alternate;
 }
 
 /* Play/Pause butonu */
 #playPauseBtn {
   position:fixed;
   top:20px;
-  right:20px;
+  left:20px;
   padding:10px 20px;
   background:rgba(0,0,0,0.7);
   color:white;
@@ -71,9 +90,13 @@ body{
 </head>
 <body>
 
+<div class="left-side"></div>
+
 <div class="lyrics">
 Buraya tüm sözleri eksiksiz yapıştır.
 </div>
+
+<div class="right-side"></div>
 
 <audio id="bgMusic" autoplay loop>
   <source src="assets/music.mp3" type="audio/mpeg">
