@@ -4,8 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Video + Background</title>
+
+<!-- 🔥 VERCEL ANALYTICS -->
+<script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
+
 body{
   display:flex;
   height:100vh;
@@ -18,6 +23,7 @@ body{
   position:relative;
   overflow:hidden;
 }
+
 .video-half video{
   width:100%;
   height:100%;
@@ -25,7 +31,7 @@ body{
   animation:glitch 1.5s infinite;
 }
 
-/* Yoğun glitch + pixelizasyon */
+/* Glitch */
 @keyframes glitch {
   0%   { transform:translate(0,0) scale(1); filter:contrast(1) saturate(1); }
   10%  { transform:translate(-4px,2px) scale(1.02); filter:hue-rotate(30deg) contrast(1.4) saturate(1.3) blur(1px); }
@@ -37,7 +43,7 @@ body{
   100% { transform:translate(0,0) scale(1); filter:contrast(1) saturate(1); }
 }
 
-/* Play/Pause butonu ortada */
+/* Button */
 .play-btn{
   position:absolute;
   top:50%;
@@ -46,7 +52,7 @@ body{
   padding:14px 28px;
   background:rgba(0,0,0,0.6);
   color:white;
-  font-family:'Inter', sans-serif;
+  font-family:Arial;
   font-size:18px;
   border:1px solid rgba(255,255,255,0.7);
   border-radius:8px;
@@ -54,31 +60,30 @@ body{
   z-index:10;
 }
 
-/* Sağ taraf background */
+/* Sağ taraf */
 .bg-half{
   flex:1;
   position:relative;
-  background:url("assets/background.jpg") center center / cover no-repeat;
+  background:url("assets/background.jpg") center/cover no-repeat;
 }
 
-/* Alt yazı sol alt */
-.bg-half .caption{
+.caption{
   position:absolute;
   bottom:20px;
   left:20px;
-  font-family:'Playfair Display', serif;
   font-size:28px;
-  color:#4B2E2E; /* koyu sütlü kahve */
-  text-shadow:0 0 6px rgba(0,0,0,0.6);
+  color:#4B2E2E;
 }
 </style>
 </head>
+
 <body>
 
 <div class="video-half">
   <video id="video" autoplay loop controlslist="nodownload noremoteplayback">
     <source src="assets/video.mp4" type="video/mp4">
   </video>
+
   <button class="play-btn" onclick="toggleVideo()">PLAY</button>
 </div>
 
@@ -89,7 +94,8 @@ body{
 <script>
 const vid = document.getElementById("video");
 const btn = document.querySelector(".play-btn");
-vid.volume = 1.0; // sesi tam açık
+
+vid.volume = 1.0;
 
 function toggleVideo(){
   if(vid.paused){
