@@ -3,10 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 🔥 VERCEL ANALYTICS -->
-<script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
-
-<title>Sola bg.jpg + Ortada Lyrics + Sağa background.jpg</title>
+<title>Sola video.mp4 + Ortada Lyrics + Sağa background.jpg</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -20,21 +17,25 @@ body{
   overflow:hidden; /* slider çıkmasın */
 }
 
-/* Sol görsel */
+/* Sol video */
 .left-side {
   flex:1;
-  background:url('assets/bg.jpg') no-repeat center center;
-  background-size:contain;
   margin:10px;
   border-radius:12px;
-  animation: glitch 2s infinite;
+  overflow:hidden;
+}
+.left-side video {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:12px;
 }
 
 /* Ortadaki lyrics kutusu */
 .lyrics {
   flex:1;
   background:rgba(20,20,20,0.85);
-  padding:20px 40px;
+  padding:60px 40px 40px 40px;
   border-radius:12px;
   line-height:1.6;
   white-space:pre-line;
@@ -47,16 +48,17 @@ body{
   position:relative;
 }
 
-/* Play/Pause butonu lyrics içinde en üstte */
+/* Play/Pause butonu lyrics içinde en üstte ve büyük */
 #playPauseBtn {
   position:absolute;
   top:10px;
   right:10px;
-  padding:8px 16px;
+  padding:14px 28px;
+  font-size:18px;
   background:rgba(0,0,0,0.7);
   color:white;
   border:none;
-  border-radius:5px;
+  border-radius:8px;
   cursor:pointer;
   transition:background 0.3s;
 }
@@ -93,66 +95,24 @@ body{
 </head>
 <body>
 
-<div class="left-side"></div>
+<div class="left-side">
+  <video id="bgVideo" autoplay loop muted>
+    <source src="assets/video.mp4" type="video/mp4">
+  </video>
+  <button onclick="toggleVideo()">Video Pause</button>
+</div>
 
 <div class="lyrics">
   <button id="playPauseBtn">Pause</button>
-  I'm becoming less defined as days go by
-Fading away
-And well you might say
-I'm losing focus
-Kinda drifting into the abstract in terms of how I see myself
-Sometimes I think I can see right through myself
-Sometimes I think I can see right through myself
-Sometimes I can see right through myself
-Less concerned about fitting into the world
-Your world that is
-'Cause it doesn't really matter anymore
-(No it doesn't really matter anymore)
-No it doesn't really matter anymore
-None of this really matters anymore
-Yes I am alone but then again I always was
-As far back as I can tell
-I think maybe it's because
-Because you were never really real to begin with
-I just made you up to hurt myself
-I just made you up to hurt myself, yeah
-And I just made you up to hurt myself
-I just made you up to hurt myself, yeah
-And I just made you up to hurt myself
-And it worked
-Yes it did!
-There is no you
-There is only me
-There is no you
-There is only me
-There is no fucking you
-There is only me
-There is no fucking you
-There is only me
-Only
-Only
-Only
-Only
-Well the tiniest little dot caught my eye and it turned out to be a scab
-And I had this funny feeling like I just knew it's something bad
-I just couldn't leave it alone
-I kept picking at the scab
-It was a doorway trying to seal itself shut
-But I climbed through
-Now I am somewhere I am not supposed to be
-And I can see things I know I really shouldn't see
-And now I know why, now, now, now I know why
-Things aren't as pretty
-On the inside
-There is no you
-There is only me
-There is no you
-There is only me
-There is no fucking you
-There is only me
-There is no fucking you
-There is only me
+  Çoğu zaman kendilerini sevimli de gösterirler sana. Oysa korkakların her zamanki kurnazlığıdır bu.
+Evet, korkaklar kurnazdır!
+Çok düşünürler senin hakkında daracık ruhlarıyla, – şüpheli gelirsin hep onlara! Şüpheli olur çok
+düşünülen ne varsa.
+Tüm erdemlerin yüzünden cezalandırırlar seni. İçtenlikle bağışladıkları yalnızca – hatalarındır.
+Yumuşak başlı ve dürüst olduğun için dersin ki: “Masumdur onlar, küçük varoluşlarında.” Oysa
+onların daracık ruhları düşünür ki: “Suçludur tüm büyük varoluşlar!”
+Onlara yumuşak davransan, onları aşağıladığını düşünürler; ve senin iyiliklerine gizli kötülüklerle
+karşılık verirler.
 </div>
 
 <div class="right-side"></div>
@@ -164,6 +124,7 @@ There is only me
 <script>
 const audio = document.getElementById('bgMusic');
 const btn = document.getElementById('playPauseBtn');
+const video = document.getElementById('bgVideo');
 
 btn.addEventListener('click', () => {
   if(audio.paused){
@@ -174,6 +135,16 @@ btn.addEventListener('click', () => {
     btn.textContent = "Play";
   }
 });
+
+function toggleVideo(){
+  if(video.paused){
+    video.play();
+    event.target.textContent = "Video Pause";
+  } else {
+    video.pause();
+    event.target.textContent = "Video Play";
+  }
+}
 </script>
 
 </body>
