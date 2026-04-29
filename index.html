@@ -10,7 +10,7 @@
 
 body{
   height:100vh;
-  background:black url('background.jpg') no-repeat center center;
+  background:black url('assets/background.jpg') no-repeat center center;
   background-size:cover;
   display:flex;
   align-items:center;
@@ -19,7 +19,7 @@ body{
   color:white;
   font-family:sans-serif;
   text-align:center;
-  overflow:auto; /* uzun sözler için kaydırma */
+  overflow:auto;
 }
 
 .lyrics {
@@ -28,74 +28,49 @@ body{
   padding:30px;
   border-radius:10px;
   line-height:1.6;
-  white-space:pre-line; /* satır sonlarını korur */
+  white-space:pre-line;
+}
+
+/* Play/Pause butonu */
+#playPauseBtn {
+  position:fixed;
+  top:20px;
+  right:20px;
+  padding:10px 20px;
+  background:rgba(0,0,0,0.7);
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
 }
 </style>
 </head>
 <body>
 
 <div class="lyrics">
-I'm becoming less defined as days go by
-Fading away
-And well you might say
-I'm losing focus
-Kinda drifting into the abstract in terms of how I see myself
-Sometimes I think I can see right through myself
-Sometimes I think I can see right through myself
-Sometimes I can see right through myself
-Less concerned about fitting into the world
-Your world that is
-'Cause it doesn't really matter anymore
-(No it doesn't really matter anymore)
-No it doesn't really matter anymore
-None of this really matters anymore
-Yes I am alone but then again I always was
-As far back as I can tell
-I think maybe it's because
-Because you were never really real to begin with
-I just made you up to hurt myself
-I just made you up to hurt myself, yeah
-And I just made you up to hurt myself
-I just made you up to hurt myself, yeah
-And I just made you up to hurt myself
-And it worked
-Yes it did!
-There is no you
-There is only me
-There is no you
-There is only me
-There is no fucking you
-There is only me
-There is no fucking you
-There is only me
-Only
-Only
-Only
-Only
-Well the tiniest little dot caught my eye and it turned out to be a scab
-And I had this funny feeling like I just knew it's something bad
-I just couldn't leave it alone
-I kept picking at the scab
-It was a doorway trying to seal itself shut
-But I climbed through
-Now I am somewhere I am not supposed to be
-And I can see things I know I really shouldn't see
-And now I know why, now, now, now I know why
-Things aren't as pretty
-On the inside
-There is no you
-There is only me
-There is no you
-There is only me
-There is no fucking you
-There is only me
-There is no fucking you
-There is only me
+Tüm sözleri buraya yapıştır...
 </div>
 
-<audio autoplay loop>
-  <source src="music.mp3" type="audio/mpeg">
+<audio id="bgMusic" autoplay loop>
+  <source src="assets/music.mp3" type="audio/mpeg">
 </audio>
+
+<button id="playPauseBtn">Pause</button>
+
+<script>
+const audio = document.getElementById('bgMusic');
+const btn = document.getElementById('playPauseBtn');
+
+btn.addEventListener('click', () => {
+  if(audio.paused){
+    audio.play();
+    btn.textContent = "Pause";
+  } else {
+    audio.pause();
+    btn.textContent = "Play";
+  }
+});
+</script>
 
 </body>
 </html>
