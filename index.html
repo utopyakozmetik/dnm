@@ -3,110 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video + Background</title>
-
-<!-- 🔥 VERCEL ANALYTICS -->
-<script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+<title>Tam Sayfa Background + Lyrics + Müzik</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  display:flex;
   height:100vh;
-  background:black;
-}
-
-/* Sol taraf video */
-.video-half{
-  flex:1;
-  position:relative;
-  overflow:hidden;
-}
-
-.video-half video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  animation:glitch 1.5s infinite;
-}
-
-/* Glitch */
-@keyframes glitch {
-  0%   { transform:translate(0,0) scale(1); filter:contrast(1) saturate(1); }
-  10%  { transform:translate(-4px,2px) scale(1.02); filter:hue-rotate(30deg) contrast(1.4) saturate(1.3) blur(1px); }
-  20%  { transform:translate(3px,-3px) scale(0.98); filter:hue-rotate(-25deg) contrast(0.8) saturate(1.5); }
-  30%  { transform:translate(-2px,1px) scale(1.05); filter:brightness(1.3) contrast(1.2) saturate(1.6) blur(2px); }
-  40%  { transform:translate(2px,-2px) scale(1.01); filter:hue-rotate(15deg) contrast(1.5) saturate(1.2); }
-  50%  { transform:translate(-1px,1px) scale(1.03); filter:hue-rotate(-10deg) contrast(1.1) saturate(1.4) blur(1px); }
-  60%  { transform:translate(0,0) scale(1); filter:contrast(1) saturate(1); }
-  100% { transform:translate(0,0) scale(1); filter:contrast(1) saturate(1); }
-}
-
-/* Button */
-.play-btn{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  padding:14px 28px;
-  background:rgba(0,0,0,0.6);
+  background:black url('background.jpg') no-repeat center center;
+  background-size:cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
   color:white;
-  font-family:Arial;
-  font-size:18px;
-  border:1px solid rgba(255,255,255,0.7);
-  border-radius:8px;
-  cursor:pointer;
-  z-index:10;
+  font-family:sans-serif;
+  text-align:center;
+  overflow:auto; /* uzun sözler için kaydırma */
 }
 
-/* Sağ taraf */
-.bg-half{
-  flex:1;
-  position:relative;
-  background:url("assets/background.jpg") center/cover no-repeat;
-}
-
-.caption{
-  position:absolute;
-  bottom:20px;
-  left:20px;
-  font-size:28px;
-  color:#4B2E2E;
+.lyrics {
+  max-width:900px;
+  background:rgba(0,0,0,0.6);
+  padding:30px;
+  border-radius:10px;
+  line-height:1.6;
+  white-space:pre-line; /* satır sonlarını korur */
 }
 </style>
 </head>
-
 <body>
 
-<div class="video-half">
-  <video id="video" autoplay loop controlslist="nodownload noremoteplayback">
-    <source src="assets/video.mp4" type="video/mp4">
-  </video>
-
-  <button class="play-btn" onclick="toggleVideo()">PLAY</button>
+<div class="lyrics">
+I'm becoming less defined as days go by
+Fading away
+And well you might say
+I'm losing focus
+Kinda drifting into the abstract in terms of how I see myself
+Sometimes I think I can see right through myself
+Sometimes I think I can see right through myself
+Sometimes I can see right through myself
+Less concerned about fitting into the world
+Your world that is
+'Cause it doesn't really matter anymore
+(No it doesn't really matter anymore)
+No it doesn't really matter anymore
+None of this really matters anymore
+Yes I am alone but then again I always was
+As far back as I can tell
+I think maybe it's because
+Because you were never really real to begin with
+I just made you up to hurt myself
+I just made you up to hurt myself, yeah
+And I just made you up to hurt myself
+I just made you up to hurt myself, yeah
+And I just made you up to hurt myself
+And it worked
+Yes it did!
+There is no you
+There is only me
+There is no you
+There is only me
+There is no fucking you
+There is only me
+There is no fucking you
+There is only me
+Only
+Only
+Only
+Only
+Well the tiniest little dot caught my eye and it turned out to be a scab
+And I had this funny feeling like I just knew it's something bad
+I just couldn't leave it alone
+I kept picking at the scab
+It was a doorway trying to seal itself shut
+But I climbed through
+Now I am somewhere I am not supposed to be
+And I can see things I know I really shouldn't see
+And now I know why, now, now, now I know why
+Things aren't as pretty
+On the inside
+There is no you
+There is only me
+There is no you
+There is only me
+There is no fucking you
+There is only me
+There is no fucking you
+There is only me
 </div>
 
-<div class="bg-half">
-  <div class="caption">...sooner or later...</div>
-</div>
-
-<script>
-const vid = document.getElementById("video");
-const btn = document.querySelector(".play-btn");
-
-vid.volume = 1.0;
-
-function toggleVideo(){
-  if(vid.paused){
-    vid.play();
-    btn.textContent = "PAUSE";
-  } else {
-    vid.pause();
-    btn.textContent = "PLAY";
-  }
-}
-</script>
+<audio autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 </body>
 </html>
