@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sola video.mp4 + Ortada Lyrics + Sağa background.jpg</title>
+<title>Video + Lyrics + Background</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -14,10 +14,10 @@ body{
   background:black;
   font-family:"Segoe UI", sans-serif;
   color:white;
-  overflow:hidden; /* slider çıkmasın */
+  overflow:hidden;
 }
 
-/* Sol video */
+/* SOL VIDEO */
 .left-side {
   flex:1;
   margin:10px;
@@ -31,7 +31,7 @@ body{
   border-radius:12px;
 }
 
-/* Ortadaki lyrics kutusu */
+/* LYRICS */
 .lyrics {
   flex:1;
   background:rgba(20,20,20,0.85);
@@ -48,7 +48,7 @@ body{
   position:relative;
 }
 
-/* Play/Pause butonu lyrics içinde en üstte ve büyük */
+/* BUTON */
 #playPauseBtn {
   position:absolute;
   top:10px;
@@ -60,13 +60,12 @@ body{
   border:none;
   border-radius:8px;
   cursor:pointer;
-  transition:background 0.3s;
 }
 #playPauseBtn:hover {
   background:rgba(255,255,255,0.2);
 }
 
-/* Sağ görsel */
+/* SAĞ GÖRSEL */
 .right-side {
   flex:1;
   background:url('assets/background.jpg') no-repeat center center;
@@ -76,7 +75,7 @@ body{
   animation: glitch 2s infinite;
 }
 
-/* Efektler */
+/* EFEKTLER */
 @keyframes glitch {
   0% { filter:none; }
   20% { filter:hue-rotate(20deg) contrast(1.2); transform:translate(2px,-2px) scale(1.02); }
@@ -93,56 +92,49 @@ body{
 }
 </style>
 </head>
+
 <body>
 
+<!-- SOL VIDEO -->
 <div class="left-side">
-  <video id="bgVideo" autoplay loop controls style="width:100%;height:100%;object-fit:contain;border-radius:12px;">
+  <video id="bgVideo" autoplay loop controls>
     <source src="assets/video.mp4" type="video/mp4">
-    Tarayıcınız video etiketini desteklemiyor.
   </video>
 </div>
 
+<!-- TEK AUDIO -->
 <audio id="bgMusic" autoplay loop>
   <source src="assets/music.mp3" type="audio/mpeg">
 </audio>
 
+<!-- LYRICS -->
+<div class="lyrics">
+  <button id="playPauseBtn">Pause</button>
+
+Çoğu zaman kendilerini sevimli de gösterirler sana. Oysa korkakların her zamanki kurnazlığıdır bu.
+Evet, korkaklar kurnazdır!
+Çok düşünürler senin hakkında daracık ruhlarıyla, – şüpheli gelirsin hep onlara! Şüpheli olur çok düşünülen ne varsa.
+Tüm erdemlerin yüzünden cezalandırırlar seni. İçtenlikle bağışladıkları yalnızca – hatalarındır.
+Yumuşak başlı ve dürüst olduğun için dersin ki: “Masumdur onlar, küçük varoluşlarında.” Oysa onların daracık ruhları düşünür ki: “Suçludur tüm büyük varoluşlar!”
+Onlara yumuşak davransan, onları aşağıladığını düşünürler; ve senin iyiliklerine gizli kötülüklerle karşılık verirler.
+
+</div>
+
+<!-- SAĞ -->
+<div class="right-side"></div>
+
 <script>
 const video = document.getElementById('bgVideo');
 const audio = document.getElementById('bgMusic');
+const btn = document.getElementById('playPauseBtn');
 
-// Video sesi açık başlasın
+/* BAŞLANGIÇ AYAR */
 video.muted = false;
 video.volume = 1.0;
 
-// Müzik kısık başlasın
-audio.volume = 0.2; // %20 ses
-</script>
+audio.volume = 0.2;
 
-
-<div class="lyrics">
-  <button id="playPauseBtn">Pause</button>
-  Çoğu zaman kendilerini sevimli de gösterirler sana. Oysa korkakların her zamanki kurnazlığıdır bu.
-Evet, korkaklar kurnazdır!
-Çok düşünürler senin hakkında daracık ruhlarıyla, – şüpheli gelirsin hep onlara! Şüpheli olur çok
-düşünülen ne varsa.
-Tüm erdemlerin yüzünden cezalandırırlar seni. İçtenlikle bağışladıkları yalnızca – hatalarındır.
-Yumuşak başlı ve dürüst olduğun için dersin ki: “Masumdur onlar, küçük varoluşlarında.” Oysa
-onların daracık ruhları düşünür ki: “Suçludur tüm büyük varoluşlar!”
-Onlara yumuşak davransan, onları aşağıladığını düşünürler; ve senin iyiliklerine gizli kötülüklerle
-karşılık verirler.
-</div>
-
-<div class="right-side"></div>
-
-<audio id="bgMusic" autoplay loop>
-  <source src="assets/music.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-const audio = document.getElementById('bgMusic');
-const btn = document.getElementById('playPauseBtn');
-const video = document.getElementById('bgVideo');
-
+/* PLAY / PAUSE */
 btn.addEventListener('click', () => {
   if(audio.paused){
     audio.play();
@@ -152,16 +144,6 @@ btn.addEventListener('click', () => {
     btn.textContent = "Play";
   }
 });
-
-function toggleVideo(){
-  if(video.paused){
-    video.play();
-    event.target.textContent = "Video Pause";
-  } else {
-    video.pause();
-    event.target.textContent = "Video Play";
-  }
-}
 </script>
 
 </body>
