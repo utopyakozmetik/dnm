@@ -34,21 +34,20 @@ body{
   border-radius:12px;
 }
 
-/* LYRICS ORTA */
+/* ORTA GÖRSEL */
 .lyrics {
   flex:1;
   background:rgba(20,20,20,0.85);
   padding:60px 40px 40px 40px;
   border-radius:12px;
-  line-height:1.6;
-  white-space:pre-line;
-  text-align:left;
   box-shadow:0 8px 20px rgba(0,0,0,0.7);
   border:1px solid rgba(255,255,255,0.2);
   margin:10px;
-  overflow:auto;
-  animation: textGlow 3s infinite alternate;
+  overflow:hidden;
   position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 /* BUTON */
@@ -66,6 +65,12 @@ body{
 }
 #playPauseBtn:hover {
   background:rgba(255,255,255,0.2);
+}
+
+.lyrics img {
+  max-width:100%;
+  max-height:100%;
+  border-radius:12px;
 }
 
 /* SAĞ VIDEO ALANI */
@@ -86,13 +91,6 @@ body{
   height:100%;
   object-fit:contain;
   border-radius:12px;
-}
-
-/* EFEKTLER */
-@keyframes textGlow {
-  0% { text-shadow:0 0 5px #fff; }
-  50% { text-shadow:0 0 20px #ff00ff, 0 0 40px #00ffff; }
-  100% { text-shadow:0 0 10px #fff; }
 }
 
 /* 📱 Mobil uyum */
@@ -120,8 +118,6 @@ body{
 
   .lyrics {
     padding:20px;
-    font-size:14px;
-    line-height:1.4;
   }
 
   #playPauseBtn {
@@ -144,31 +140,39 @@ body{
     </video>
   </div>
 
-  <!-- LYRICS ORTA -->
+  <!-- ORTA GÖRSEL + BUTON -->
   <div class="lyrics">
     <button id="playPauseBtn">Pause</button>
-    Bu dünyadan ve onun insancıklarından hep aynı şeyleri gördüm, olumsuzluk silsilesi ama herşey geçti hep sevgi kaldı, joker vs klişelerini ve kötülüğünüze bahane uydurmaya çalışırken adı bile komik birsürü sendrom vs üreten, tek derdi sizi sisteme entegre etmek olan, her yaptığınız pisliğe çocukluğunuzdan oradan buradan bahaneler bulma ve bu bahaneleri çözmek için uzun seanslar, para ve rütbeye sahip olma konusunda uzmanlaşmış boş psikolog/psikiyatr ve osuruktan psikolojik teorisel zırvalarınızı yıkmak için buradayım, ne kadar hançerlerseniz hançerleyin eninde sonunda sevgiyle döneceğim, budur benim mucizem...<br> indigod
-    <!-- senin verdiğin metin burada -->
+    <img src="assets/a.jpeg" alt="Orta görsel">
   </div>
 
-  <!-- SAĞ VIDEO ALANI -->
+  <!-- SAĞ VIDEO -->
   <div class="right-side">
     <video id="video3" autoplay loop controls playsinline>
       <source src="assets/video3.mp4" type="video/mp4">
     </video>
   </div>
 
+  <!-- MÜZİK -->
+  <audio id="bgMusic" loop>
+    <source src="assets/music.mp3" type="audio/mpeg">
+  </audio>
+
 <script>
-const video = document.getElementById('bgVideo');
+const audio = document.getElementById('bgMusic');
 const btn = document.getElementById('playPauseBtn');
 
-/* PLAY / PAUSE sadece sol video için */
+/* Başlangıç ayarı */
+audio.volume = 0.5;
+audio.play();
+
+/* PLAY / PAUSE sadece müzik için */
 btn.addEventListener('click', () => {
-  if(video.paused){
-    video.play();
+  if(audio.paused){
+    audio.play();
     btn.textContent = "Pause";
   } else {
-    video.pause();
+    audio.pause();
     btn.textContent = "Play";
   }
 });
