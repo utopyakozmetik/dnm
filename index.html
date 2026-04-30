@@ -3,129 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video + Lyrics + Background</title>
-
-<script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+<title>6 Bölmeli Grid Düzen</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
-body{
-  height:100vh;
-  display:flex;
-  background:black;
+body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 sütun */
+  grid-template-rows: repeat(2, 1fr);    /* 2 satır */
+  gap: 10px;
+  height: 100vh;
+  background: black;
   font-family:"Segoe UI", sans-serif;
   color:white;
-  overflow:hidden;
-  flex-direction:row; /* masaüstünde yatay */
 }
 
-/* SOL VIDEO */
-.left-side {
-  flex:1;
-  margin:10px;
+/* Genel kutu stili */
+.section {
   border-radius:12px;
   overflow:hidden;
+  background:rgba(20,20,20,0.85);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  position:relative;
 }
-.left-side video {
+
+/* Görseller */
+.section img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+/* Videolar */
+.section video {
   width:100%;
   height:100%;
   object-fit:contain;
   border-radius:12px;
 }
 
-/* ORTA GÖRSEL */
-.lyrics {
-  flex:1;
-  background:rgba(20,20,20,0.85);
-  padding:60px 40px 40px 40px;
-  border-radius:12px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.7);
-  border:1px solid rgba(255,255,255,0.2);
-  margin:10px;
-  overflow:hidden;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* BUTON */
-#playPauseBtn {
+/* Buton */
+.playPauseBtn {
   position:absolute;
   top:10px;
   right:10px;
-  padding:14px 28px;
-  font-size:18px;
+  padding:8px 16px;
+  font-size:14px;
   background:rgba(0,0,0,0.7);
   color:white;
   border:none;
   border-radius:8px;
   cursor:pointer;
 }
-#playPauseBtn:hover {
+.playPauseBtn:hover {
   background:rgba(255,255,255,0.2);
 }
 
-.lyrics img {
-  max-width:100%;
-  max-height:100%;
-  border-radius:12px;
-}
-
-/* SAĞ VIDEO ALANI */
-.right-side {
-  flex:1;
-  margin:10px;
-  border-radius:12px;
-  background:black;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 8px 20px rgba(0,0,0,0.7);
-  border:1px solid rgba(255,255,255,0.2);
-  overflow:hidden;
-}
-.right-side video {
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  border-radius:12px;
-}
-
-/* 📱 Mobil uyum */
-@media (max-width: 768px) {
+/* 📱 Mobil uyum: tek sütun, 6 satır */
+@media (max-width:768px) {
   body {
-    flex-direction: column; /* mobilde dikey */
-    overflow:auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, auto);
     height:auto;
   }
-
-  .left-side,
-  .lyrics,
-  .right-side {
-    flex:none;
-    width:100%;
-    height:auto;
-    margin:5px 0;
-  }
-
-  .left-side video {
-    height:auto;
-    max-height:40vh;
-    object-fit:cover;
-  }
-
-  .lyrics {
-    padding:20px;
-  }
-
-  #playPauseBtn {
-    font-size:14px;
-    padding:8px 16px;
-  }
-
-  .right-side {
+  .section {
     min-height:40vh;
   }
 }
@@ -133,48 +79,60 @@ body{
 </head>
 <body>
 
-  <!-- SOL VIDEO -->
-  <div class="left-side">
-    <video id="bgVideo" autoplay loop controls playsinline>
-      <source src="assets/video.mp4" type="video/mp4">
+  <!-- ÜSTTE 3 GÖRSEL + MÜZİK -->
+  <div class="section">
+    <button class="playPauseBtn" data-target="m1">Play</button>
+    <img src="assets/resim1.jpeg" alt="Resim 1">
+    <audio id="m1">
+      <source src="assets/m1.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+  <div class="section">
+    <button class="playPauseBtn" data-target="m2">Play</button>
+    <img src="assets/resim2.jpeg" alt="Resim 2">
+    <audio id="m2">
+      <source src="assets/m2.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+  <div class="section">
+    <button class="playPauseBtn" data-target="m3">Play</button>
+    <img src="assets/resim3.jpeg" alt="Resim 3">
+    <audio id="m3">
+      <source src="assets/m3.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- ALTA 3 VİDEO -->
+  <div class="section">
+    <video id="video1" controls playsinline>
+      <source src="assets/video1.mp4" type="video/mp4">
     </video>
   </div>
-
-  <!-- ORTA GÖRSEL + BUTON -->
-  <div class="lyrics">
-    <button id="playPauseBtn">Pause</button>
-    <img src="assets/a.jpeg" alt="Orta görsel">
+  <div class="section">
+    <video id="video2" controls playsinline>
+      <source src="assets/video2.mp4" type="video/mp4">
+    </video>
   </div>
-
-  <!-- SAĞ VIDEO -->
-  <div class="right-side">
-    <video id="video3" autoplay loop controls playsinline>
+  <div class="section">
+    <video id="video3" controls playsinline>
       <source src="assets/video3.mp4" type="video/mp4">
     </video>
   </div>
 
-  <!-- MÜZİK -->
-  <audio id="bgMusic" loop>
-    <source src="assets/music.mp3" type="audio/mpeg">
-  </audio>
-
 <script>
-const audio = document.getElementById('bgMusic');
-const btn = document.getElementById('playPauseBtn');
-
-/* Başlangıç ayarı */
-audio.volume = 0.5;
-audio.play();
-
-/* PLAY / PAUSE sadece müzik için */
-btn.addEventListener('click', () => {
-  if(audio.paused){
-    audio.play();
-    btn.textContent = "Pause";
-  } else {
-    audio.pause();
-    btn.textContent = "Play";
-  }
+const buttons = document.querySelectorAll('.playPauseBtn');
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetId = btn.getAttribute('data-target');
+    const audio = document.getElementById(targetId);
+    if(audio.paused){
+      audio.play();
+      btn.textContent = "Pause";
+    } else {
+      audio.pause();
+      btn.textContent = "Play";
+    }
+  });
 });
 </script>
 
