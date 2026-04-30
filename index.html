@@ -17,6 +17,7 @@ body{
   font-family:"Segoe UI", sans-serif;
   color:white;
   overflow:hidden;
+  flex-direction:row; /* masaüstünde yatay */
 }
 
 /* SOL VIDEO */
@@ -86,20 +87,70 @@ body{
   color:#ffcc00;
   text-shadow:0 0 20px rgba(255,200,0,0.8);
 }
+
+/* EFEKTLER */
+@keyframes textGlow {
+  0% { text-shadow:0 0 5px #fff; }
+  50% { text-shadow:0 0 20px #ff00ff, 0 0 40px #00ffff; }
+  100% { text-shadow:0 0 10px #fff; }
+}
+
+/* 📱 Mobil uyum */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column; /* mobilde dikey */
+    overflow:auto;
+  }
+
+  .left-side,
+  .lyrics,
+  .right-side {
+    flex:none;
+    width:100%;
+    height:auto;
+    margin:5px 0;
+  }
+
+  .left-side video {
+    height:auto;
+    max-height:40vh;
+    object-fit:cover;
+  }
+
+  .lyrics {
+    padding:20px;
+    font-size:14px;
+    line-height:1.4;
+  }
+
+  #playPauseBtn {
+    font-size:14px;
+    padding:8px 16px;
+  }
+
+  .right-side {
+    background-size:cover;
+    min-height:40vh;
+  }
+}
 </style>
 </head>
 <body>
 
   <!-- SOL VIDEO -->
   <div class="left-side">
-    <video src="assets/video.mp4" autoplay loop muted></video>
+    <video id="bgVideo" autoplay loop controls playsinline>
+      <source src="assets/video.mp4" type="video/mp4">
+    </video>
   </div>
 
   <!-- LYRICS ORTA -->
   <div class="lyrics">
     <button id="playPauseBtn">Pause</button>
-    YAKLAŞIK BİR YILDIR SAYISI 10U GEÇEN KİŞİNİN YAŞATTIĞI İĞRENÇLİKLERİN YARATTIĞI BULANTI HAYATIMDA İLK DEFA PSİKOLOJİK BİR İĞRENMENİN FİZİKSEL MİDE BULANTISINA DÖNÜŞMESİNE VE HAFTALARDIR DEVAM ETMESİNE ŞAHİT OLMAMI DENEYİMLETTİ, TEŞEKKÜR EDERİM, BEN DE SİZİ ÇOK SEVİYORUM <333 VE BU BENDE BÜYÜK BİR ÖFKEYE SEBEP OLUYOR, BU ÖFKEYİ KONTROL EDEBİLDİĞİMDE BURADA YAYINLARA BAŞLAYACAĞIM BUNDAN SONRA HİÇBİR SOSYAL MEDYA VS OLAYI YOK SADECE BURASI,TÜM İŞLER DE BURADA YAYINLANACAK VE BEDAVA DOWNLOAD OLACAK...<br>
-Mantramız hep aynı, kimsenin iğrençliği, kötülüğü beni değiştiremedi değiştiremez:<br>
+    YAKLAŞIK BİR YILDIR SAYISI 10U GEÇEN KİŞİNİN YAŞATTIĞI İĞRENÇLİKLERİN YARATTIĞI BULANTI HAYATIMDA İLK DEFA PSİKOLOJİK BİR İĞRENMENİN FİZİKSEL MİDE BULANTISINA DÖNÜŞMESİNE VE HAFTALARDIR DEVAM ETMESİNE ŞAHİT OLMAMI DENEYİMLETTİ, TEŞEKKÜR EDERİM, BEN DE SİZİ ÇOK SEVİYORUM <333 VE BU BENDE BÜYÜK BİR ÖFKEYE SEBEP OLUYOR, BU ÖFKEYİ KONTROL EDEBİLDİĞİMDE BURADA YAYINLARA BAŞLAYACAĞIM BUNDAN SONRA HİÇBİR SOSYAL MEDYA VS OLAYI YOK SADECE BURASI,TÜM İŞLER DE BURADA YAYINLANACAK VE BEDAVA DOWNLOAD OLACAK...
+
+Mantramız hep aynı, kimsenin iğrençliği, kötülüğü beni değiştiremedi değiştiremez:
+
 A thousand dreams within
 Within me softly burn
 They burn the savage soul
@@ -130,18 +181,35 @@ I'll go on and on and on and on and on
 Mercy is the cry of the soul that stirred
 Mercy is the cry and it's never heard
 Love is all we have
-Love is all we need
+Love is all we need...
+    <!-- senin verdiğin metin burada -->
   </div>
 
   <!-- SAĞ SÖZ ALANI -->
   <div class="right-side">
     <div class="big-quote">
       GÜNÜN SÖZÜ<br>
-Attığım taş etti şak
-Sakatat (Ya, ya)...<br>
+ 
+Attığım taş etti şak Sakatat (Ya, ya)...<br>
 Bir numaralı fanınım büyük sanatçı filozof, koşa koşa gel sik beni bak video da yayınladık bir numaralı fanınız diye, o değil ama ben birinciyim, Bursa Mustafakemalpaşa sana hayran tüm instakalamarlarıyla...
     </div>
   </div>
+
+<script>
+const video = document.getElementById('bgVideo');
+const btn = document.getElementById('playPauseBtn');
+
+/* PLAY / PAUSE sadece video için */
+btn.addEventListener('click', () => {
+  if(video.paused){
+    video.play();
+    btn.textContent = "Pause";
+  } else {
+    video.pause();
+    btn.textContent = "Play";
+  }
+});
+</script>
 
 </body>
 </html>
