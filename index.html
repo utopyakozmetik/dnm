@@ -33,7 +33,7 @@ body{
   border-radius:12px;
 }
 
-/* LYRICS */
+/* LYRICS ORTA */
 .lyrics {
   flex:1;
   background:rgba(20,20,20,0.85);
@@ -67,86 +67,49 @@ body{
   background:rgba(255,255,255,0.2);
 }
 
-/* SAĞ GÖRSEL */
+/* SAĞ SÖZ ALANI */
 .right-side {
   flex:1;
-  background:url('assets/background.jpg') no-repeat center center;
-  background-size:contain;
   margin:10px;
   border-radius:12px;
-  animation: glitch 2s infinite;
+  background:rgba(30,30,30,0.9);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  box-shadow:0 8px 20px rgba(0,0,0,0.7);
+  border:1px solid rgba(255,255,255,0.2);
 }
-
-/* EFEKTLER */
-@keyframes glitch {
-  0% { filter:none; }
-  20% { filter:hue-rotate(20deg) contrast(1.2); transform:translate(2px,-2px) scale(1.02); }
-  40% { filter:blur(2px) brightness(1.2); transform:translate(-2px,2px) scale(0.98); }
-  60% { filter:contrast(1.5) saturate(1.5); transform:translate(3px,0) scale(1.03); }
-  80% { filter:hue-rotate(-20deg) brightness(0.9); transform:translate(-3px,0) scale(0.97); }
-  100% { filter:none; transform:none; }
-}
-
-@keyframes textGlow {
-  0% { text-shadow:0 0 5px #fff; }
-  50% { text-shadow:0 0 20px #ff00ff, 0 0 40px #00ffff; }
-  100% { text-shadow:0 0 10px #fff; }
+.right-side .big-quote {
+  font-size:48px;
+  font-weight:bold;
+  color:#ffcc00;
+  text-shadow:0 0 20px rgba(255,200,0,0.8);
 }
 </style>
 </head>
-
 <body>
 
-<!-- SOL VIDEO -->
-<div class="left-side">
-  <video id="bgVideo" autoplay loop controls>
-    <source src="assets/video.mp4" type="video/mp4">
-  </video>
-</div>
+  <!-- SOL VIDEO -->
+  <div class="left-side">
+    <video src="assets/video.mp4" autoplay loop muted></video>
+  </div>
 
-<!-- TEK AUDIO -->
-<audio id="bgMusic" autoplay loop>
-  <source src="assets/music.mp3" type="audio/mpeg">
-</audio>
+  <!-- LYRICS ORTA -->
+  <div class="lyrics">
+    <button id="playPauseBtn">Pause</button>
+    Şarkı sözlerini buraya yazabilirsiniz...
+  </div>
 
-<!-- LYRICS -->
-<div class="lyrics">
-  <button id="playPauseBtn">Pause</button>
-
-Çoğu zaman kendilerini sevimli de gösterirler sana. Oysa korkakların her zamanki kurnazlığıdır bu.
-Evet, korkaklar kurnazdır!
-Çok düşünürler senin hakkında daracık ruhlarıyla, – şüpheli gelirsin hep onlara! Şüpheli olur çok düşünülen ne varsa.
-Tüm erdemlerin yüzünden cezalandırırlar seni. İçtenlikle bağışladıkları yalnızca – hatalarındır.
-Yumuşak başlı ve dürüst olduğun için dersin ki: “Masumdur onlar, küçük varoluşlarında.” Oysa onların daracık ruhları düşünür ki: “Suçludur tüm büyük varoluşlar!”
-Onlara yumuşak davransan, onları aşağıladığını düşünürler; ve senin iyiliklerine gizli kötülüklerle karşılık verirler.
-
-</div>
-
-<!-- SAĞ -->
-<div class="right-side"></div>
-
-<script>
-const video = document.getElementById('bgVideo');
-const audio = document.getElementById('bgMusic');
-const btn = document.getElementById('playPauseBtn');
-
-/* BAŞLANGIÇ AYAR */
-video.muted = false;
-video.volume = 1.0;
-
-audio.volume = 0.2;
-
-/* PLAY / PAUSE */
-btn.addEventListener('click', () => {
-  if(audio.paused){
-    audio.play();
-    btn.textContent = "Pause";
-  } else {
-    audio.pause();
-    btn.textContent = "Play";
-  }
-});
-</script>
+  <!-- SAĞ SÖZ ALANI -->
+  <div class="right-side">
+    <div class="big-quote">
+      <!-- GÜNÜN SÖZÜ<br>
+Attığım taş etti şak
+Sakatat (Ya, ya)... --><br>
+Bir numaralı fanınım büyük sanatçı filozof, koşa koşa gel sik beni bak video da yayınladık bir numaralı fanınız diye, o değil ama ben birinciyim, Bursa Mustafakemalpaşa sana hayran tüm instakalamarlarıyla...
+    </div>
+  </div>
 
 </body>
 </html>
