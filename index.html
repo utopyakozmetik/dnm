@@ -17,6 +17,7 @@ body{
   font-family:"Segoe UI", sans-serif;
   color:white;
   overflow:hidden;
+  flex-direction:row; /* masaüstünde yatay */
 }
 
 /* SOL VIDEO */
@@ -67,24 +68,70 @@ body{
   background:rgba(255,255,255,0.2);
 }
 
-/* SAĞ SÖZ ALANI */
+/* SAĞ VIDEO ALANI */
 .right-side {
   flex:1;
   margin:10px;
   border-radius:12px;
-  background:rgba(30,30,30,0.9);
+  background:black;
   display:flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
   box-shadow:0 8px 20px rgba(0,0,0,0.7);
   border:1px solid rgba(255,255,255,0.2);
+  overflow:hidden;
 }
-.right-side .big-quote {
-  font-size:48px;
-  font-weight:bold;
-  color:#ffcc00;
-  text-shadow:0 0 20px rgba(255,200,0,0.8);
+.right-side video {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:12px;
+}
+
+/* EFEKTLER */
+@keyframes textGlow {
+  0% { text-shadow:0 0 5px #fff; }
+  50% { text-shadow:0 0 20px #ff00ff, 0 0 40px #00ffff; }
+  100% { text-shadow:0 0 10px #fff; }
+}
+
+/* 📱 Mobil uyum */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column; /* mobilde dikey */
+    overflow:auto;
+    height:auto;
+  }
+
+  .left-side,
+  .lyrics,
+  .right-side {
+    flex:none;
+    width:100%;
+    height:auto;
+    margin:5px 0;
+  }
+
+  .left-side video {
+    height:auto;
+    max-height:40vh;
+    object-fit:cover;
+  }
+
+  .lyrics {
+    padding:20px;
+    font-size:14px;
+    line-height:1.4;
+  }
+
+  #playPauseBtn {
+    font-size:14px;
+    padding:8px 16px;
+  }
+
+  .right-side {
+    min-height:40vh;
+  }
 }
 </style>
 </head>
@@ -92,56 +139,40 @@ body{
 
   <!-- SOL VIDEO -->
   <div class="left-side">
-    <video src="assets/video.mp4" autoplay loop muted></video>
+    <video id="bgVideo" autoplay loop controls playsinline>
+      <source src="assets/video.mp4" type="video/mp4">
+    </video>
   </div>
 
   <!-- LYRICS ORTA -->
   <div class="lyrics">
     <button id="playPauseBtn">Pause</button>
-    YAKLAŞIK BİR YILDIR SAYISI 10U GEÇEN KİŞİNİN YAŞATTIĞI İĞRENÇLİKLERİN YARATTIĞI BULANTI HAYATIMDA İLK DEFA PSİKOLOJİK BİR İĞRENMENİN FİZİKSEL MİDE BULANTISINA DÖNÜŞMESİNE VE HAFTALARDIR DEVAM ETMESİNE ŞAHİT OLMAMI DENEYİMLETTİ, TEŞEKKÜR EDERİM, BEN DE SİZİ ÇOK SEVİYORUM <333 VE BU BENDE BÜYÜK BİR ÖFKEYE SEBEP OLUYOR, BU ÖFKEYİ KONTROL EDEBİLDİĞİMDE BURADA YAYINLARA BAŞLAYACAĞIM BUNDAN SONRA HİÇBİR SOSYAL MEDYA VS OLAYI YOK SADECE BURASI,TÜM İŞLER DE BURADA YAYINLANACAK VE BEDAVA DOWNLOAD OLACAK...<br>
-Mantramız hep aynı, kimsenin iğrençliği, kötülüğü beni değiştiremedi değiştiremez:<br>
-A thousand dreams within
-Within me softly burn
-They burn the savage soul
-That twisted what it learned
-I feel this life slipping by
-I can feel this life slipping by
-Desire is a state
-A state of ill repair
-It's ill prepared to cope
-It's ill prepared to care
-I feel this life slipping by
-I can feel this life slipping by
-Time and time life's left me only
-Feeling sick and feeling scared
-Now my love is strong, my love is strong
-I'll go on and on and on and on and on
-Mercy is the cry of the soul that stirred
-Beneath the creeping vine
-A flower tries to change
-It tries to satisfy
-It's thirst without the rains
-I feel this change coming on
-I can feel this change coming on
-Time and time life's left me only
-Feeling sick and feeling scared
-Now love is strong my love is strong
-I'll go on and on and on and on and on
-Mercy is the cry of the soul that stirred
-Mercy is the cry and it's never heard
-Love is all we have
-Love is all we need
+    Bu dünyadan ve onun insancıklarından hep aynı şeyleri gördüm, olumsuzluk silsilesi ama herşey geçti hep sevgi kaldı, joker vs klişelerini ve kötüşüğünüze bahane uydurmaya çalışırken adı bile komik birsürü sendrom vs üreten, tek derdi sizi sisteme entegre etmek olan, her yaptığınız pisliğe çocukluğunuzdan oradan buradan bahaneler bulma ve bu bahaneleri çözmek için uzun seanslar, para ve rütbeye sahip olma konusunda uzmanlaşmış boş psikolog/psikiyatr ve osuruktan psikolojik teorisel zırvalarınızı yıkmak için buradayım, ne kadar hançerlerseniz hançerleyin eninde sonunda sevgiyle döneceğim, budur benim mucizem...
+    <!-- senin verdiğin metin burada -->
   </div>
 
-  <!-- SAĞ SÖZ ALANI -->
+  <!-- SAĞ VIDEO ALANI -->
   <div class="right-side">
-    <div class="big-quote">
-      GÜNÜN SÖZÜ<br>
-Attığım taş etti şak
-Sakatat (Ya, ya)...<br>
-Bir numaralı fanınım büyük sanatçı filozof, koşa koşa gel sik beni bak video da yayınladık bir numaralı fanınız diye, o değil ama ben birinciyim, Bursa Mustafakemalpaşa sana hayran tüm instakalamarlarıyla...
-    </div>
+    <video id="video3" autoplay loop controls playsinline>
+      <source src="assets/video3.mp4" type="video/mp4">
+    </video>
   </div>
+
+<script>
+const video = document.getElementById('bgVideo');
+const btn = document.getElementById('playPauseBtn');
+
+/* PLAY / PAUSE sadece sol video için */
+btn.addEventListener('click', () => {
+  if(video.paused){
+    video.play();
+    btn.textContent = "Pause";
+  } else {
+    video.pause();
+    btn.textContent = "Play";
+  }
+});
+</script>
 
 </body>
 </html>
