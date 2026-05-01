@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>6 Bölmeli Grid Düzen</title>
 
+<!-- Vercel Analytics -->
+<script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
@@ -79,7 +82,7 @@ body {
 </head>
 <body>
 
-  <!-- ÜSTTE 3 GÖRSEL + MÜZİK -->
+  <!-- ÜSTTE 3 KUTU -->
   <div class="section">
     <button class="playPauseBtn" data-target="m1">Play</button>
     <img src="assets/resim1.jpeg" alt="Resim 1">
@@ -87,13 +90,14 @@ body {
       <source src="assets/m1.mp3" type="audio/mpeg">
     </audio>
   </div>
+
+  <!-- ORTA ÜST KUTU ARTIK VIDEO4 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="m2">Play</button>
-    <img src="assets/resim2.jpeg" alt="Resim 2">
-    <audio id="m2">
-      <source src="assets/m2.mp3" type="audio/mpeg">
-    </audio>
+    <video id="video4" controls playsinline>
+      <source src="assets/video4.mp4" type="video/mp4">
+    </video>
   </div>
+
   <div class="section">
     <button class="playPauseBtn" data-target="m3">Play</button>
     <img src="assets/resim3.jpeg" alt="Resim 3">
@@ -105,8 +109,7 @@ body {
   <!-- ALTA 3 VİDEO -->
   <div class="section">
     <video id="video1" controls playsinline>
-      <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1777596613/video1_ggbhab.mp4
-" type="video/mp4">
+      <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1777596613/video1_ggbhab.mp4" type="video/mp4">
     </video>
   </div>
   <div class="section">
