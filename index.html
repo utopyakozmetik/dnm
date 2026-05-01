@@ -259,15 +259,14 @@ for(let i=1;i<=12;i++){
 
 // Fullscreen açma
 function openFullscreen(el){
-  // Önce video var mı kontrol et
   const video = el.querySelector("video");
   const img = el.querySelector("img");
 
-  if(video){
-    // Video varsa, zaten kendi player'ı var → hiçbir şey yapma
+  if(video && video.src){ 
+    // Video varsa, player kendi fullscreen tuşunu kullanır
     return;
   } else if(img){
-    // Video yoksa, resim fullscreen aç
+    // Video yoksa, resim fullscreen açılır
     if(img.requestFullscreen){
       img.requestFullscreen();
     } else if(img.webkitRequestFullscreen){
@@ -277,6 +276,7 @@ function openFullscreen(el){
     }
   }
 }
+
 
 </script>
 </body>
