@@ -57,7 +57,7 @@ body {
   border-radius:0 0 12px 12px;
 }
 
-/* Play/Pause butonu */
+/* Müzik Aç/Kapat butonu */
 .playPauseBtn {
   position:absolute;
   top:10px;
@@ -90,10 +90,9 @@ body {
 </head>
 <body>
 
-  <!-- 12 kutu -->
   <!-- Kutucuk 1 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v1">Play</button>
+    <button class="playPauseBtn" data-target="m1">Müzik Aç</button>
     <img src="assets/r1.jpeg" alt="Resim 1">
     <video id="v1" controls playsinline>
       <source src="assets/v1.mp4" type="video/mp4">
@@ -106,7 +105,7 @@ body {
 
   <!-- Kutucuk 2 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v2">Play</button>
+    <button class="playPauseBtn" data-target="m2">Müzik Aç</button>
     <img src="assets/r2.jpeg" alt="Resim 2">
     <video id="v2" controls playsinline>
       <source src="assets/v2.mp4" type="video/mp4">
@@ -119,7 +118,7 @@ body {
 
   <!-- Kutucuk 3 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v3">Play</button>
+    <button class="playPauseBtn" data-target="m3">Müzik Aç</button>
     <img src="assets/r3.jpeg" alt="Resim 3">
     <video id="v3" controls playsinline>
       <source src="assets/v3.mp4" type="video/mp4">
@@ -132,7 +131,7 @@ body {
 
   <!-- Kutucuk 4 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v4">Play</button>
+    <button class="playPauseBtn" data-target="m4">Müzik Aç</button>
     <img src="assets/r4.jpeg" alt="Resim 4">
     <video id="v4" controls playsinline>
       <source src="assets/v4.mp4" type="video/mp4">
@@ -145,7 +144,7 @@ body {
 
   <!-- Kutucuk 5 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v5">Play</button>
+    <button class="playPauseBtn" data-target="m5">Müzik Aç</button>
     <img src="assets/r5.jpeg" alt="Resim 5">
     <video id="v5" controls playsinline>
       <source src="assets/v5.mp4" type="video/mp4">
@@ -158,7 +157,7 @@ body {
 
   <!-- Kutucuk 6 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v6">Play</button>
+    <button class="playPauseBtn" data-target="m6">Müzik Aç</button>
     <img src="assets/r6.jpeg" alt="Resim 6">
     <video id="v6" controls playsinline>
       <source src="assets/v6.mp4" type="video/mp4">
@@ -171,7 +170,7 @@ body {
 
   <!-- Kutucuk 7 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v7">Play</button>
+    <button class="playPauseBtn" data-target="m7">Müzik Aç</button>
     <img src="assets/r7.jpeg" alt="Resim 7">
     <video id="v7" controls playsinline>
       <source src="assets/v7.mp4" type="video/mp4">
@@ -184,7 +183,7 @@ body {
 
   <!-- Kutucuk 8 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v8">Play</button>
+    <button class="playPauseBtn" data-target="m8">Müzik Aç</button>
     <img src="assets/r8.jpeg" alt="Resim 8">
     <video id="v8" controls playsinline>
       <source src="assets/v8.mp4" type="video/mp4">
@@ -197,7 +196,7 @@ body {
 
   <!-- Kutucuk 9 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v9">Play</button>
+    <button class="playPauseBtn" data-target="m9">Müzik Aç</button>
     <img src="assets/r9.jpeg" alt="Resim 9">
     <video id="v9" controls playsinline>
       <source src="assets/v9.mp4" type="video/mp4">
@@ -210,7 +209,7 @@ body {
 
   <!-- Kutucuk 10 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v10">Play</button>
+    <button class="playPauseBtn" data-target="m10">Müzik Aç</button>
     <img src="assets/r10.jpeg" alt="Resim 10">
     <video id="v10" controls playsinline>
       <source src="assets/v10.mp4" type="video/mp4">
@@ -223,7 +222,7 @@ body {
 
     <!-- Kutucuk 11 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v11">Play</button>
+    <button class="playPauseBtn" data-target="m11">Müzik Aç</button>
     <img src="assets/r11.jpeg" alt="Resim 11">
     <video id="v11" controls playsinline>
       <source src="assets/v11.mp4" type="video/mp4">
@@ -236,7 +235,7 @@ body {
 
   <!-- Kutucuk 12 -->
   <div class="section">
-    <button class="playPauseBtn" data-target="v12">Play</button>
+    <button class="playPauseBtn" data-target="m12">Müzik Aç</button>
     <img src="assets/r12.jpeg" alt="Resim 12">
     <video id="v12" controls playsinline>
       <source src="assets/v12.mp4" type="video/mp4">
@@ -248,7 +247,7 @@ body {
   </div>
 
 <script>
-// Play/Pause butonları
+// Üst köşedeki butonlar artık müziği kontrol ediyor
 const buttons = document.querySelectorAll('.playPauseBtn');
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -257,10 +256,10 @@ buttons.forEach(btn => {
     if(media){
       if(media.paused){
         media.play();
-        btn.textContent = "Pause";
+        btn.textContent = "Müzik Kapat";
       } else {
         media.pause();
-        btn.textContent = "Play";
+        btn.textContent = "Müzik Aç";
       }
     }
   });
@@ -276,3 +275,5 @@ for(let i=1;i<=12;i++){
     .catch(()=>{}); // dosya yoksa boş bırak
 }
 </script>
+</body>
+</html>
