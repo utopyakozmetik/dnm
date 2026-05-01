@@ -25,36 +25,39 @@ body {
 .section {
   border-radius:12px;
   overflow:hidden;
-  background:rgba(20,20,20,0.85);
   position:relative;
   display:flex;
   flex-direction:column;
+  cursor:pointer;
 }
 
 /* Ortak medya */
 .section img,
 .section video {
   width:100%;
-  height:66%;
+  height:100%;
   object-fit:cover;
-  border-radius:12px 12px 0 0;
+  border-radius:12px;
 }
 
-/* Audio */
+/* Audio gizli */
 .section audio {
-  width:100%;
+  display:none;
 }
 
-/* Text kutusu */
+/* Text overlay */
 .textBox {
-  height:34%;
+  position:absolute;
+  bottom:0;
+  left:0;
   width:100%;
+  max-height:40%;
   padding:10px;
   overflow-y:auto;
   font-size:14px;
   line-height:1.4;
-  background:rgba(0,0,0,0.6);
-  border-radius:0 0 12px 12px;
+  background:rgba(0,0,0,0.5);
+  color:white;
 }
 
 /* Müzik Aç/Kapat butonu */
@@ -90,167 +93,146 @@ body {
 </head>
 <body>
 
+  <!-- Kutucuklar 1–12 -->
+  <!-- Hepsi aynı mantıkla -->
   <!-- Kutucuk 1 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m1">Müzik Aç</button>
     <img src="assets/r1.jpeg" alt="Resim 1">
     <video id="v1" controls playsinline>
       <source src="assets/v1.mp4" type="video/mp4">
     </video>
-    <audio id="m1">
-      <source src="assets/m1.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m1"><source src="assets/m1.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t1"></div>
   </div>
 
   <!-- Kutucuk 2 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m2">Müzik Aç</button>
     <img src="assets/r2.jpeg" alt="Resim 2">
     <video id="v2" controls playsinline>
       <source src="assets/v2.mp4" type="video/mp4">
     </video>
-    <audio id="m2">
-      <source src="assets/m2.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m2"><source src="assets/m2.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t2"></div>
   </div>
 
   <!-- Kutucuk 3 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m3">Müzik Aç</button>
     <img src="assets/r3.jpeg" alt="Resim 3">
     <video id="v3" controls playsinline>
       <source src="assets/v3.mp4" type="video/mp4">
     </video>
-    <audio id="m3">
-      <source src="assets/m3.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m3"><source src="assets/m3.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t3"></div>
   </div>
 
   <!-- Kutucuk 4 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m4">Müzik Aç</button>
     <img src="assets/r4.jpeg" alt="Resim 4">
     <video id="v4" controls playsinline>
       <source src="assets/v4.mp4" type="video/mp4">
     </video>
-    <audio id="m4">
-      <source src="assets/m4.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m4"><source src="assets/m4.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t4"></div>
   </div>
 
   <!-- Kutucuk 5 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m5">Müzik Aç</button>
     <img src="assets/r5.jpeg" alt="Resim 5">
     <video id="v5" controls playsinline>
       <source src="assets/v5.mp4" type="video/mp4">
     </video>
-    <audio id="m5">
-      <source src="assets/m5.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m5"><source src="assets/m5.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t5"></div>
   </div>
 
   <!-- Kutucuk 6 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m6">Müzik Aç</button>
     <img src="assets/r6.jpeg" alt="Resim 6">
     <video id="v6" controls playsinline>
       <source src="assets/v6.mp4" type="video/mp4">
     </video>
-    <audio id="m6">
-      <source src="assets/m6.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m6"><source src="assets/m6.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t6"></div>
   </div>
 
   <!-- Kutucuk 7 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m7">Müzik Aç</button>
     <img src="assets/r7.jpeg" alt="Resim 7">
     <video id="v7" controls playsinline>
       <source src="assets/v7.mp4" type="video/mp4">
     </video>
-    <audio id="m7">
-      <source src="assets/m7.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m7"><source src="assets/m7.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t7"></div>
   </div>
 
   <!-- Kutucuk 8 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m8">Müzik Aç</button>
     <img src="assets/r8.jpeg" alt="Resim 8">
     <video id="v8" controls playsinline>
       <source src="assets/v8.mp4" type="video/mp4">
     </video>
-    <audio id="m8">
-      <source src="assets/m8.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m8"><source src="assets/m8.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t8"></div>
   </div>
 
   <!-- Kutucuk 9 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m9">Müzik Aç</button>
     <img src="assets/r9.jpeg" alt="Resim 9">
     <video id="v9" controls playsinline>
       <source src="assets/v9.mp4" type="video/mp4">
     </video>
-    <audio id="m9">
-      <source src="assets/m9.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m9"><source src="assets/m9.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t9"></div>
   </div>
 
   <!-- Kutucuk 10 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m10">Müzik Aç</button>
     <img src="assets/r10.jpeg" alt="Resim 10">
     <video id="v10" controls playsinline>
       <source src="assets/v10.mp4" type="video/mp4">
     </video>
-    <audio id="m10">
-      <source src="assets/m10.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m10"><source src="assets/m10.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t10"></div>
   </div>
 
     <!-- Kutucuk 11 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m11">Müzik Aç</button>
     <img src="assets/r11.jpeg" alt="Resim 11">
     <video id="v11" controls playsinline>
       <source src="assets/v11.mp4" type="video/mp4">
     </video>
-    <audio id="m11">
-      <source src="assets/m11.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m11"><source src="assets/m11.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t11"></div>
   </div>
 
   <!-- Kutucuk 12 -->
-  <div class="section">
+  <div class="section" onclick="openFullscreen(this)">
     <button class="playPauseBtn" data-target="m12">Müzik Aç</button>
     <img src="assets/r12.jpeg" alt="Resim 12">
     <video id="v12" controls playsinline>
       <source src="assets/v12.mp4" type="video/mp4">
     </video>
-    <audio id="m12">
-      <source src="assets/m12.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="m12"><source src="assets/m12.mp3" type="audio/mpeg"></audio>
     <div class="textBox" id="t12"></div>
   </div>
 
 <script>
-// Üst köşedeki butonlar artık müziği kontrol ediyor
+// Üst köşedeki butonlar müziği kontrol ediyor
 const buttons = document.querySelectorAll('.playPauseBtn');
 buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation(); // kutu tıklamasını engelle
     const targetId = btn.getAttribute('data-target');
     const media = document.getElementById(targetId);
     if(media){
@@ -273,6 +255,18 @@ for(let i=1;i<=12;i++){
       document.getElementById(`t${i}`).textContent = data;
     })
     .catch(()=>{}); // dosya yoksa boş bırak
+}
+
+// Fullscreen açma
+function openFullscreen(el){
+  const media = el.querySelector("video") || el.querySelector("img");
+  if(media.requestFullscreen){
+    media.requestFullscreen();
+  } else if(media.webkitRequestFullscreen){
+    media.webkitRequestFullscreen();
+  } else if(media.msRequestFullscreen){
+    media.msRequestFullscreen();
+  }
 }
 </script>
 </body>
