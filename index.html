@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>multi licker god</title>
 
-<!-- Vercel Analytics -->
 <script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
 
 <style>
@@ -31,23 +30,20 @@ body {
   cursor:pointer;
 }
 
-/* Ortak medya */
+/* medya */
 .section img,
-.section video {
+.section video,
+.section iframe {
   width:100%;
   height:100%;
-  object-fit:contain; /* cover yerine contain */
+  object-fit:contain;
   border-radius:12px;
-  background:black; /* boşluk olursa siyah arka plan */
+  background:black;
+  border:none;
 }
 
+.section audio { display:none; }
 
-/* Audio gizli */
-.section audio {
-  display:none;
-}
-
-/* Text overlay */
 .textBox {
   position:absolute;
   bottom:0;
@@ -57,12 +53,10 @@ body {
   padding:10px;
   overflow-y:auto;
   font-size:14px;
-  line-height:1.4;
   background:rgba(0,0,0,0.5);
-  color:white;
 }
 
-/* Müzik Aç/Kapat butonu */
+/* müzik butonu */
 .playPauseBtn {
   position:absolute;
   top:10px;
@@ -76,205 +70,155 @@ body {
   cursor:pointer;
   z-index:10;
 }
-.playPauseBtn:hover {
-  background:rgba(255,255,255,0.2);
-}
 
-/* 📱 Mobil uyum */
 @media (max-width:768px) {
   body {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(12, auto);
     height:auto;
   }
-  .section {
-    min-height:40vh;
-  }
+  .section { min-height:40vh; }
 }
 </style>
 </head>
+
 <body>
 
-  <!-- Kutucuklar 1–12 -->
-  <!-- Hepsi aynı mantıkla -->
-  <!-- Kutucuk 1 -->
-  <div class="section" onclick="openFullscreen(this)">
-    
-    <video id="v1" controls playsinline>
-      <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778587281/InShot_20260512_144740459_yi1mjn.mp4">
-    </video>
-    <audio id="m1"><source src="assets/m1.mp3" type="audio/mpeg"></audio>
-    <div class="textBox" id="t1"></div>
-  </div>
-
-  <!-- Kutucuk 2 -->
-  <div class="section" onclick="openFullscreen(this)">
-    
-    
-    <video id="v2" controls playsinline>
-      <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778532729/InShot_20260511_234410845_l3pt9c.mp4" type="video/mp4">
-    </video>
-    <audio id="m2"><source src="assets/m2.mp3" type="audio/mpeg"></audio>
-    <div class="textBox" id="t2"></div>
-  </div>
-
-  <!-- Kutucuk 3 -->
-  <div class="section" onclick="openFullscreen(this)">
-    
-    <video id="v3" controls playsinline>
-      <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778580313/InShot_20260512_115140984_dtwdvx.mp4">
-    
-    
-  </div>
-
-  <!-- Kutucuk 4 -->
-  <div class="section" onclick="openFullscreen(this)">
-    <img src="assets/r4.jpeg" alt="R">
-    <video id="v4" controls playsinline>
-      <source src="">
-    </video>
-    <audio id="m4"><source src="assets/m4.mp3" type="audio/mpeg"></audio>
-    <div class="textBox" id="t4"></div>
-  </div>
-
-  <!-- Kutucuk 5 -->
-  <div class="section" onclick="openFullscreen(this)">
-    
-    <video id="v6" controls playsinline>
-      <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778592536/InShot_20260512_155356722_ipo4zi.mp4">
-    </video>
-    
-  </div>
-
-  <!-- Kutucuk 6 -->
-  <div class="section" onclick="openFullscreen(this)">
-    
-    
-    <video id="v6" controls playsinline>
-      <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778409136/InShot_20260510_132451800_lnizru.mp4" type="video/mp4">
-    </video>
-    <audio id="m6"><source src="assets/m6.mp3" type="audio/mpeg"></audio>
-    <div class="textBox" id="t6"></div>
-  </div>
-
-  <!-- Kutucuk 7 -->
-  <div class="section" onclick="openFullscreen(this)">
-    
-    
-    <video id="v7" controls playsinline>
-      <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778580939/InShot_20260512_125951324_lgtv3x.mp4" type="video/mp4">
-    </video>
-    <audio id="m7"><source src="assets/m7.mp3" type="audio/mpeg"></audio>
-    <div class="textBox" id="t7"></div>
-  </div>
-
-  <!-- Kutucuk 8 -->
-  <div class="section" onclick="openFullscreen(this)">
-    
-    
-    <video id="v8" controls playsinline>
-      <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778603160/InShot_20260512_183521690_gdh2wj.mp4">
-    </video>
-    <audio id="m8"><source src="assets/m8.mp3" type="audio/mpeg"></audio>
-    <div class="textBox" id="t8"></div>
-  </div>
-
-  <!-- Kutucuk 9 -->
-  <div class="section" onclick="openFullscreen(this)">
-    <button class="playPauseBtn" data-target="m9">Müzik Aç</button>
-    <img src="assets/r9.jpeg" alt="R">
-    <video id="v9" controls playsinline>
-      <source src="assets/v9.mp4" type="video/mp4">
-    </video>
-    <audio id="m9"><source src="assets/m9.mp3" type="audio/mpeg"></audio>
-    <div class="textBox" id="t9"></div>
-  </div>
-
-  <!-- Kutucuk 10 -->
-  <div class="section" onclick="openFullscreen(this)">
-    
-    <video id="v10" controls playsinline>
-      <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778603405/InShot_20260512_190929404_er91tm.mp4">
-    </video>
-    <audio id="m10"><source src="assets/m10.mp3" type="audio/mpeg"></audio>
-    <div class="textBox" id="t10"></div>
-  </div>
-
-    <!-- Kutucuk 11 -->
-  <div class="section" onclick="openFullscreen(this)">
-
-  <iframe 
-    src="https://www.youtube.com/embed/p4ZMNEbIzdY?mute=1"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
-    style="width:100%; height:100%; border:none; border-radius:12px;">
-  </iframe>
-
-  <div class="textBox" id="t11"></div>
-
+<!-- 1 -->
+<div class="section" onclick="openFullscreen(this)">
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778587281/InShot_20260512_144740459_yi1mjn.mp4">
+  </video>
+  <audio id="m1" src="assets/m1.mp3"></audio>
+  <div class="textBox" id="t1"></div>
 </div>
 
-  <!-- Kutucuk 12 -->
-  <div class="section" onclick="openFullscreen(this)">
-    
-    <video id="v12" controls playsinline>
-      <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778574631/InShot_20260512_112013173_tibmbf.mp4">
-    </video>
-    <audio id="m12"><source src="assets/m12.mp3" type="audio/mpeg"></audio>
-    <div class="textBox" id="t12"></div>
-  </div>
+<!-- 2 -->
+<div class="section" onclick="openFullscreen(this)">
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778532729/InShot_20260511_234410845_l3pt9c.mp4">
+  </video>
+  <audio id="m2" src="assets/m2.mp3"></audio>
+  <div class="textBox" id="t2"></div>
+</div>
+
+<!-- 3 -->
+<div class="section" onclick="openFullscreen(this)">
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778580313/InShot_20260512_115140984_dtwdvx.mp4">
+  </video>
+</div>
+
+<!-- 4 -->
+<div class="section" onclick="openFullscreen(this)">
+  <img src="assets/r4.jpeg">
+  <audio id="m4" src="assets/m4.mp3"></audio>
+  <div class="textBox" id="t4"></div>
+</div>
+
+<!-- 5 -->
+<div class="section" onclick="openFullscreen(this)">
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778592536/InShot_20260512_155356722_ipo4zi.mp4">
+  </video>
+</div>
+
+<!-- 6 -->
+<div class="section" onclick="openFullscreen(this)">
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778409136/InShot_20260510_132451800_lnizru.mp4">
+  </video>
+  <audio id="m6" src="assets/m6.mp3"></audio>
+  <div class="textBox" id="t6"></div>
+</div>
+
+<!-- 7 -->
+<div class="section" onclick="openFullscreen(this)">
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778580939/InShot_20260512_125951324_lgtv3x.mp4">
+  </video>
+  <audio id="m7" src="assets/m7.mp3"></audio>
+  <div class="textBox" id="t7"></div>
+</div>
+
+<!-- 8 -->
+<div class="section" onclick="openFullscreen(this)">
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778603160/InShot_20260512_183521690_gdh2wj.mp4">
+  </video>
+  <audio id="m8" src="assets/m8.mp3"></audio>
+  <div class="textBox" id="t8"></div>
+</div>
+
+<!-- 9 -->
+<div class="section" onclick="openFullscreen(this)">
+  <button class="playPauseBtn" data-target="m9">Müzik Aç</button>
+  <img src="assets/r9.jpeg">
+  <audio id="m9" src="assets/m9.mp3"></audio>
+  <div class="textBox" id="t9"></div>
+</div>
+
+<!-- 10 -->
+<div class="section" onclick="openFullscreen(this)">
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778603405/InShot_20260512_190929404_er91tm.mp4">
+  </video>
+  <audio id="m10" src="assets/m10.mp3"></audio>
+  <div class="textBox" id="t10"></div>
+</div>
+
+<!-- 11 YOUTUBE -->
+<div class="section" onclick="openFullscreen(this)">
+  <iframe src="https://www.youtube.com/embed/p4ZMNEbIzdY?autoplay=1&mute=1" allowfullscreen></iframe>
+  <div class="textBox" id="t11"></div>
+</div>
+
+<!-- 12 -->
+<div class="section" onclick="openFullscreen(this)">
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778574631/InShot_20260512_112013173_tibmbf.mp4">
+  </video>
+  <audio id="m12" src="assets/m12.mp3"></audio>
+  <div class="textBox" id="t12"></div>
+</div>
 
 <script>
-// Üst köşedeki butonlar müziği kontrol ediyor
-const buttons = document.querySelectorAll('.playPauseBtn');
-buttons.forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation(); // kutu tıklamasını engelle
-    const targetId = btn.getAttribute('data-target');
-    const media = document.getElementById(targetId);
-    if(media){
-      if(media.paused){
-        media.play();
-        btn.textContent = "Müzik Kapat";
-      } else {
-        media.pause();
-        btn.textContent = "Müzik Aç";
-      }
-    }
-  });
+/* müzik kontrol */
+document.querySelectorAll('.playPauseBtn').forEach(btn=>{
+  btn.onclick=(e)=>{
+    e.stopPropagation();
+    const a=document.getElementById(btn.dataset.target);
+    if(a.paused){a.play();btn.textContent="Müzik Kapat";}
+    else{a.pause();btn.textContent="Müzik Aç";}
+  }
 });
 
-// Text dosyalarını yükle
+/* text yükleme */
 for(let i=1;i<=12;i++){
   fetch(`assets/t${i}.txt`)
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById(`t${i}`).textContent = data;
-    })
-    .catch(()=>{}); // dosya yoksa boş bırak
+    .then(r=>r.text())
+    .then(t=>{const el=document.getElementById(`t${i}`);if(el)el.textContent=t;})
+    .catch(()=>{});
 }
 
-// Fullscreen açma
+/* fullscreen */
 function openFullscreen(el){
-  const video = el.querySelector("video");
-  const img = el.querySelector("img");
+  const video=el.querySelector("video");
+  const iframe=el.querySelector("iframe");
+  const img=el.querySelector("img");
 
-  if(video && video.src){ 
-    // Video varsa, player kendi fullscreen tuşunu kullanır
+  if(video && video.src) return;
+
+  if(iframe){
+    iframe.requestFullscreen?.();
     return;
-  } else if(img){
-    // Video yoksa, resim fullscreen açılır
-    if(img.requestFullscreen){
-      img.requestFullscreen();
-    } else if(img.webkitRequestFullscreen){
-      img.webkitRequestFullscreen();
-    } else if(img.msRequestFullscreen){
-      img.msRequestFullscreen();
-    }
+  }
+
+  if(img){
+    img.requestFullscreen?.();
   }
 }
-
-
 </script>
+
 </body>
 </html>
