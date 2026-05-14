@@ -11,13 +11,13 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 10px;
-  height: 100vh;
-  background: black;
-  font-family:"Segoe UI", sans-serif;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(4,1fr);
+  gap:10px;
+  height:100vh;
+  background:black;
+  font-family:"Segoe UI",sans-serif;
   color:white;
 }
 
@@ -42,7 +42,7 @@ body {
   border:none;
 }
 
-.section audio { display:none; }
+.section audio {display:none;}
 
 .textBox {
   position:absolute;
@@ -71,13 +71,26 @@ body {
   z-index:10;
 }
 
-@media (max-width:768px) {
-  body {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(12, auto);
+/* iframe placeholder */
+.video-placeholder {
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  background:black;
+  color:white;
+}
+
+/* mobil */
+@media (max-width:768px){
+  body{
+    grid-template-columns:1fr;
+    grid-template-rows:repeat(12,auto);
     height:auto;
   }
-  .section { min-height:40vh; }
+  .section{min-height:40vh;}
 }
 </style>
 </head>
@@ -93,30 +106,15 @@ body {
   <div class="textBox" id="t1"></div>
 </div>
 
-<!-- 2 -->
-<div class="section">
-
-  <iframe 
-    src="https://player.mediadelivery.net/play/659357/546f719e-504d-4952-9ca4-6c813fb81e45"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
-    style="width:100%; height:100%; border:none;">
-  </iframe>
-
+<!-- 2 (FIXED iframe) -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/546f719e-504d-4952-9ca4-6c813fb81e45">
+  <div class="video-placeholder">▶</div>
 </div>
 
 <!-- 3 -->
-<div class="section">
-
-  <iframe 
-    src="https://player.mediadelivery.net/play/659357/75ede7b7-8994-4350-a866-b2e469ed3e46"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
-    style="width:100%; height:100%; border:none;">
-  </iframe>
-
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/75ede7b7-8994-4350-a866-b2e469ed3e46">
+  <div class="video-placeholder">▶</div>
 </div>
-
 
 <!-- 4 -->
 <div class="section" onclick="openFullscreen(this)">
@@ -126,15 +124,8 @@ body {
 </div>
 
 <!-- 5 -->
-<div class="section">
-
-  <iframe 
-    src="https://player.mediadelivery.net/play/659357/8b50394b-a5d6-4a57-977f-a062af03fb4e?autoplay=false"
-    allow="encrypted-media"
-    allowfullscreen
-    style="width:100%; height:100%; border:none;">
-</iframe>
-
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/8b50394b-a5d6-4a57-977f-a062af03fb4e">
+  <div class="video-placeholder">▶</div>
 </div>
 
 <!-- 6 -->
@@ -181,16 +172,9 @@ body {
   <div class="textBox" id="t10"></div>
 </div>
 
-<!-- 11 YOUTUBE -->
-<div class="section">
-
-  <iframe 
-    src="https://player.mediadelivery.net/play/659357/43fba3d9-1b92-4f22-aab1-bf7a733f655c"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
-    style="width:100%; height:100%; border:none;">
-  </iframe>
-
+<!-- 11 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/43fba3d9-1b92-4f22-aab1-bf7a733f655c">
+  <div class="video-placeholder">▶</div>
 </div>
 
 <!-- 12 -->
@@ -203,7 +187,8 @@ body {
 </div>
 
 <script>
-/* müzik kontrol */
+
+/* müzik */
 document.querySelectorAll('.playPauseBtn').forEach(btn=>{
   btn.onclick=(e)=>{
     e.stopPropagation();
@@ -213,31 +198,48 @@ document.querySelectorAll('.playPauseBtn').forEach(btn=>{
   }
 });
 
-/* text yükleme */
+/* text */
 for(let i=1;i<=12;i++){
   fetch(`assets/t${i}.txt`)
     .then(r=>r.text())
-    .then(t=>{const el=document.getElementById(`t${i}`);if(el)el.textContent=t;})
+    .then(t=>{
+      const el=document.getElementById(`t${i}`);
+      if(el) el.textContent=t;
+    })
     .catch(()=>{});
 }
 
+/* iframe lazy load (AUTOPLAY FIX) */
+document.querySelectorAll(".video-box").forEach(box=>{
+  box.addEventListener("click",function(){
+
+    if(this.querySelector("iframe")) return;
+
+    const iframe=document.createElement("iframe");
+    iframe.src=this.dataset.src+"?autoplay=0";
+    iframe.allow="encrypted-media";
+    iframe.allowFullscreen=true;
+    iframe.style.width="100%";
+    iframe.style.height="100%";
+    iframe.style.border="none";
+
+    this.innerHTML="";
+    this.appendChild(iframe);
+  });
+});
+
 /* fullscreen */
 function openFullscreen(el){
-  const video=el.querySelector("video");
   const iframe=el.querySelector("iframe");
+  if(iframe){iframe.requestFullscreen?.();return;}
+
+  const video=el.querySelector("video");
+  if(video){video.requestFullscreen?.();return;}
+
   const img=el.querySelector("img");
-
-  if(video && video.src) return;
-
-  if(iframe){
-    iframe.requestFullscreen?.();
-    return;
-  }
-
-  if(img){
-    img.requestFullscreen?.();
-  }
+  if(img){img.requestFullscreen?.();}
 }
+
 </script>
 
 </body>
