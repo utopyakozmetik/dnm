@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>multi licker god</title>
+
+<script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  display:grid;
+  grid-template-columns:repeat(4,1fr); /* 4x4 */
+  grid-template-rows:repeat(4,1fr);
+  gap:10px;
+  height:100vh;
+  background:black;
+  font-family:"Segoe UI",sans-serif;
+  color:white;
+}
+
+.section {
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+}
+
+/* medya */
+.section img,
+.section video,
+.section iframe {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:12px;
+  background:black;
+  border:none;
+}
+
+.section audio {display:none;}
+
+.textBox {
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  max-height:40%;
+  padding:10px;
+  overflow-y:auto;
+  font-size:14px;
+  background:rgba(0,0,0,0.5);
+}
+
+/* müzik */
+.playPauseBtn {
+  position:absolute;
+  top:10px;
+  right:10px;
+  padding:6px 12px;
+  font-size:13px;
+  background:rgba(0,0,0,0.7);
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  z-index:10;
+}
+
+/* iframe placeholder */
+.video-placeholder {
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  background:black;
+  color:white;
+}
+
+/* mobil */
+@media (max-width:768px){
+  body{
+    grid-template-columns:1fr;
+    grid-template-rows:none;
+    height:auto;
+  }
+  .section{min-height:35vh;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 1 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/a654e08b-b21f-4e29-8825-042ab111ab8c">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 2 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/df858b34-d0f2-4896-9a06-94cb0a4e75b5">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 3 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/8cf17333-17e0-46b4-8121-18c959b8fc18">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 4 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/177388e3-8e66-4a49-a85b-bf967fe61ab4">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 5 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/1f9f5130-5073-434c-b35c-2df2f14133dd">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 6 -->
+<div class="section" onclick="openFullscreen(this)">
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778409136/InShot_20260510_132451800_lnizru.mp4">
+  </video>
+  <audio id="m6" src="assets/m6.mp3"></audio>
+  <div class="textBox" id="t6"></div>
+</div>
+
+<!-- 7 (FIXED) -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/48fb80ac-43b7-4a66-a05c-7ea1d397bf1f">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 8 (FIXED) -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/850970e1-7780-42fa-b880-c5300e38517d">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 9 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/10e2d046-bd18-4110-b13e-74304f8d0972">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 10 -->
+<div class="section" onclick="openFullscreen(this)">
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778603405/InShot_20260512_190929404_er91tm.mp4">
+  </video>
+  <audio id="m10" src="assets/m10.mp3"></audio>
+  <div class="textBox" id="t10"></div>
+</div>
+
+<!-- 11 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/43fba3d9-1b92-4f22-aab1-bf7a733f655c">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 12 (FIXED) -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/cb8fe88c-2acd-4a6b-bd02-ef17196dd29b">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 13 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/2635ae2f-4bbf-44c3-9eaa-c92e78c11a1f">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 14 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/0e312d82-580e-423f-b6dd-f8fae3c3cceb">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 15 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/7da3faba-a893-4c88-a201-19e85576654f">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 16 -->
+<div class="section video-box" data-src="https://player.mediadelivery.net/play/659357/01f4f3dc-562c-4189-a71d-400e756aa74e">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<script>
+
+/* müzik */
+document.querySelectorAll('.playPauseBtn').forEach(btn=>{
+  btn.onclick=(e)=>{
+    e.stopPropagation();
+    const a=document.getElementById(btn.dataset.target);
+    if(a.paused){a.play();btn.textContent="Müzik Kapat";}
+    else{a.pause();btn.textContent="Müzik Aç";}
+  }
+});
+
+/* text */
+for(let i=1;i<=16;i++){
+  fetch(`assets/t${i}.txt`)
+    .then(r=>r.text())
+    .then(t=>{
+      const el=document.getElementById(`t${i}`);
+      if(el) el.textContent=t;
+    })
+    .catch(()=>{});
+}
+
+/* iframe lazy load */
+document.querySelectorAll(".video-box").forEach(box=>{
+  box.addEventListener("click",function(){
+
+    if(this.querySelector("iframe")) return;
+
+    const iframe=document.createElement("iframe");
+    iframe.src=this.dataset.src+"?autoplay=0";
+    iframe.allow="encrypted-media";
+    iframe.allowFullscreen=true;
+    iframe.style.width="100%";
+    iframe.style.height="100%";
+    iframe.style.border="none";
+
+    this.innerHTML="";
+    this.appendChild(iframe);
+  });
+});
+
+/* fullscreen */
+function openFullscreen(el){
+  const iframe=el.querySelector("iframe");
+  if(iframe){iframe.requestFullscreen?.();return;}
+
+  const video=el.querySelector("video");
+  if(video){video.requestFullscreen?.();return;}
+
+  const img=el.querySelector("img");
+  if(img){img.requestFullscreen?.();}
+}
+
+</script>
+
+</body>
+</html>
