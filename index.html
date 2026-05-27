@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>multi licker god</title>
+
+<script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:repeat(4,1fr);
+  gap:10px;
+  height:100vh;
+  background:black;
+  font-family:"Segoe UI",sans-serif;
+  color:white;
+}
+
+.section{
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+}
+
+/* medya */
+.section img,
+.section video,
+.section iframe{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:12px;
+  background:black;
+  border:none;
+}
+
+.section audio{
+  display:none;
+}
+
+.textBox{
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  max-height:40%;
+  padding:10px;
+  overflow-y:auto;
+  font-size:14px;
+  background:rgba(0,0,0,0.5);
+}
+
+/* müzik */
+.playPauseBtn{
+  position:absolute;
+  top:10px;
+  right:10px;
+  padding:6px 12px;
+  font-size:13px;
+  background:rgba(0,0,0,0.7);
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  z-index:10;
+}
+
+/* iframe placeholder */
+.video-placeholder{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  background:black;
+  color:white;
+}
+
+/* mobil */
+@media (max-width:768px){
+
+  body{
+    grid-template-columns:1fr;
+    grid-template-rows:none;
+    height:auto;
+  }
+
+  .section{
+    min-height:35vh;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- 1 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/89cec1f6-4301-4865-8d59-13ec26101d85">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 2 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/90ddd19b-90ef-41a5-a127-f73d79b66052">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 3 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/9ea1a3cf-0fd9-4b61-8388-750cc021cc48">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 4 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/18f722ab-6cdf-4a71-8b1d-fa19cf9114c3">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 5 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/a790a823-e3bd-4265-ab68-658b288a099e">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 6 -->
+<div class="section" onclick="openFullscreen(this)">
+
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778409136/InShot_20260510_132451800_lnizru.mp4">
+  </video>
+
+  <audio id="m6" src="assets/m6.mp3"></audio>
+
+  <div class="textBox" id="t6"></div>
+
+</div>
+
+<!-- 7 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/9ebd03a8-d203-47ec-b94c-6ff76aced864">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 8 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/a5ba9925-8b13-4e0a-a36d-09764814a99e">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 9 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/7a000c09-911c-4c7c-8db0-5b3c10c7ed15">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 10 -->
+<div class="section" onclick="openFullscreen(this)">
+
+  <video controls playsinline>
+    <source src="https://res.cloudinary.com/dgyxllk35/video/upload/v1778603405/InShot_20260512_190929404_er91tm.mp4">
+  </video>
+
+  <audio id="m10" src="assets/m10.mp3"></audio>
+
+  <div class="textBox" id="t10"></div>
+
+</div>
+
+<!-- 11 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/33b4f948-7bfa-4019-9d9c-dee6c29f6804">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 12 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/f672bd01-734b-4b7a-beae-e98344817c7f">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 13 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/fd6be5b8-9f15-4989-a69b-71da9c0ffbe5">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 14 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/ecbcfe34-e654-4050-bcdb-efc3e4a41902">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 15 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/97124145-cbdb-4020-a1a1-1dc21f80fa7f">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<!-- 16 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/1893f001-9fe8-490b-8fc4-1e0d8bcd739c">
+
+  <div class="video-placeholder">▶</div>
+
+</div>
+
+<script>
+
+/* müzik */
+document.querySelectorAll('.playPauseBtn').forEach(btn=>{
+
+  btn.onclick=(e)=>{
+
+    e.stopPropagation();
+
+    const a=document.getElementById(btn.dataset.target);
+
+    if(a.paused){
+
+      a.play();
+      btn.textContent="Müzik Kapat";
+
+    }else{
+
+      a.pause();
+      btn.textContent="Müzik Aç";
+
+    }
+
+  }
+
+});
+
+/* text */
+for(let i=1;i<=16;i++){
+
+  fetch(`assets/t${i}.txt`)
+    .then(r=>r.text())
+    .then(t=>{
+
+      const el=document.getElementById(`t${i}`);
+
+      if(el){
+        el.textContent=t;
+      }
+
+    })
+    .catch(()=>{});
+
+}
+
+/* iframe lazy load */
+document.querySelectorAll(".video-box").forEach(box=>{
+
+  box.addEventListener("click",function(){
+
+    if(this.querySelector("iframe")) return;
+
+    const iframe=document.createElement("iframe");
+
+    iframe.src=this.dataset.src+"?autoplay=0";
+
+    iframe.allow="autoplay; encrypted-media; fullscreen";
+    iframe.allowFullscreen=true;
+
+    iframe.style.width="100%";
+    iframe.style.height="100%";
+    iframe.style.border="none";
+
+    this.innerHTML="";
+
+    this.appendChild(iframe);
+
+  });
+
+});
+
+/* fullscreen */
+function openFullscreen(el){
+
+  const iframe = el.querySelector("iframe");
+
+  if(iframe){
+
+    if(iframe.requestFullscreen){
+      iframe.requestFullscreen();
+    }
+
+    return;
+
+  }
+
+  const video = el.querySelector("video");
+
+  if(video){
+
+    if(video.requestFullscreen){
+      video.requestFullscreen();
+    }
+
+    return;
+
+  }
+
+  const img = el.querySelector("img");
+
+  if(img){
+
+    if(img.requestFullscreen){
+      img.requestFullscreen();
+    }
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
