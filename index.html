@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>multi licker god</title>
+
+<script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,
+body{
+  width:100%;
+  min-height:100%;
+  background:black;
+  overflow-x:hidden;
+  font-family:"Segoe UI",sans-serif;
+  color:white;
+}
+
+body{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  padding:10px;
+}
+
+.section{
+  position:relative;
+  overflow:hidden;
+  border-radius:12px;
+  background:black;
+  min-height:24vh;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.section img,
+.section video,
+.section iframe{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border:none;
+  background:black;
+}
+
+.video-placeholder{
+  width:100%;
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:42px;
+
+  background:black;
+  color:white;
+}
+
+@media (max-width:768px){
+
+  body{
+    grid-template-columns:1fr;
+  }
+
+  .section{
+    min-height:35vh;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 1 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/89cec1f6-4301-4865-8d59-13ec26101d85">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 2 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/90ddd19b-90ef-41a5-a127-f73d79b66052">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 3 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/f4986d14-b176-40b1-a925-d2436a96110b">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 4 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/5294651e-7376-4899-94ad-32869b0e5beb">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 5 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/43db7c4f-bf05-4095-b133-ae060ebe0e0b">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 6 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/3333be40-0661-4d86-8975-2adf7be52509">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 7 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/75d2f37f-f81f-4227-937d-6ea711180edc">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 8 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/6f3cb709-3351-4a92-9142-f0d89210bc8f">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 9 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/7b123b27-2c11-4ab7-a377-f7db8ff8b53f">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 10 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/670659/d3b1a2a3-fb12-435d-b616-ba1ee2654ecc">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 11 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/33b4f948-7bfa-4019-9d9c-dee6c29f6804">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 12 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/f672bd01-734b-4b7a-beae-e98344817c7f">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 13 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/fd6be5b8-9f15-4989-a69b-71da9c0ffbe5">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 14 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/ecbcfe34-e654-4050-bcdb-efc3e4a41902">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 15 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/97124145-cbdb-4020-a1a1-1dc21f80fa7f">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<!-- 16 -->
+<div class="section video-box"
+data-src="https://player.mediadelivery.net/play/659357/1893f001-9fe8-490b-8fc4-1e0d8bcd739c">
+  <div class="video-placeholder">▶</div>
+</div>
+
+<script>
+
+document.querySelectorAll(".video-box").forEach(box=>{
+
+  box.addEventListener("click",function(){
+
+    if(this.querySelector("iframe")){
+
+      openFullscreen(this);
+      return;
+
+    }
+
+    const iframe=document.createElement("iframe");
+
+    iframe.src=this.dataset.src + "?autoplay=false";
+
+    iframe.allow=
+      "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+
+    iframe.allowFullscreen=true;
+
+    iframe.style.width="100%";
+    iframe.style.height="100%";
+    iframe.style.border="none";
+
+    this.innerHTML="";
+
+    this.appendChild(iframe);
+
+  });
+
+});
+
+function openFullscreen(el){
+
+  const iframe=el.querySelector("iframe");
+
+  if(iframe){
+
+    if(iframe.requestFullscreen){
+
+      iframe.requestFullscreen();
+
+    }else if(iframe.webkitRequestFullscreen){
+
+      iframe.webkitRequestFullscreen();
+
+    }
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
